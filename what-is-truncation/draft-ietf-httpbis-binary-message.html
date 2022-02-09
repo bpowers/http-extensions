@@ -1325,8 +1325,8 @@ length-prefixed value. Both name and value are sequences of bytes that cannot
 be zero length.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 <p id="section-3.1-6">The format allows for the message to be truncated before any of the length
 prefixes that precede the field sections or content. Truncation can be used to
-reduce the size of messages that have no content for subsequent field sections
-or content.  A message that is truncated at any other point is invalid; see
+reduce the size of messages that have no data in trailing field sections or
+content.  A message that is truncated at any other point is invalid; see
 <a href="#invalid" class="xref">Section 4</a>.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
 <p id="section-3.1-7">The variable-length integer encoding means that there is a limit of 2^62-1
 bytes for each field section and the message content.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
