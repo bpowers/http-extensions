@@ -424,9 +424,9 @@ Table of Contents
    Dictionary members convey hashing algorithm preferences (see
    Section 5).  Member-keys convey the hashing algorithm (see
    Section 5), member-values convey an ascending relative weighted
-   preference between 0 and 10. 1 is the least preferred, 10 is the most
-   preferred; a value of 0 means "not acceptable".  Member-values MUST
-   be of type sf-integer, in the range 0 to 10.
+   preference between 0 and 10 inclusive. 1 is the least preferred, 10
+   is the most preferred; a value of 0 means "not acceptable".  Member-
+   values MUST be of type sf-integer, in the range 0 to 10 inclusive.
 
    Examples:
 
