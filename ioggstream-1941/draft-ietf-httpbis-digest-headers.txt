@@ -650,10 +650,10 @@ Table of Contents
    preferring "standard" algorithms over "insecure" ones.  Transition
    from weak algorithms is supported by negotiation of hashing algorithm
    using Want-Representation-Digest or Want-Content-Digest (see
-   Section 4) or by sending multiple digest calculations from which the
-   receiver chooses.  Endpoints are advised that sending multiple values
-   consumes resources, which may be wasted if the receiver ignores them
-   (see Section 2).
+   Section 4) or by sending multiple digests from which the receiver
+   chooses.  Endpoints are advised that sending multiple values consumes
+   resources, which may be wasted if the receiver ignores them (see
+   Section 2).
 
    While algorithm agility allows the migration to stronger algorithms
    it does not prevent the use of weaker algorithms.  Integrity fields
