@@ -325,10 +325,9 @@ Table of Contents
      sha-512=:WZDPaVn/7XgHaAy8pmojAkGWoRx2UFChF41A2svX+TaPm+AbwAgBWnrI\
      iYllu7BNNyealdVLvRwEmTHWXvJwew==:
 
-   Since Representation-Digest is a Dictionary, it can contain multiple
-   dict-members.  This could be used, for example, to attach multiple
-   digests calculated using different hashing algorithms in order to
-   support a population of endpoints with different or evolving
+   The sf-dictionary syntax, can be used, for example, to attach
+   multiple digests calculated using different hashing algorithms in
+   order to support a population of endpoints with different or evolving
    capabilities.  Such an approach could support transitions away from
    weaker algorithms (see Section 7.6).
 
@@ -372,12 +371,11 @@ Table of Contents
      sha-512=:WZDPaVn/7XgHaAy8pmojAkGWoRx2UFChF41A2svX+TaPm+AbwAgBWnrI\
      iYllu7BNNyealdVLvRwEmTHWXvJwew==:
 
-   Since Content-Digest is a Dictionary, it can contain multiple
-   members.  This could be used, for example, to attach multiple digests
-   calculated using different hashing algorithms in order to support a
-   population of endpoints with different or evolving capabilities.
-   Such an approach could support transitions away from weaker
-   algorithms (see Section 7.6).
+   The sf-dictionary syntax, can be used, for example, to attach
+   multiple digests calculated using different hashing algorithms in
+   order to support a population of endpoints with different or evolving
+   capabilities.  Such an approach could support transitions away from
+   weaker algorithms (see Section 7.6).
 
    NOTE: '\' line wrapping per RFC 8792
 
