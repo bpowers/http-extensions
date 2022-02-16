@@ -1367,6 +1367,9 @@ This document also describes a means for requesting that a signature be applied 
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.19">
                 <p id="section-toc.1-1.7.2.19.1"><a href="#section-7.19" class="xref">7.19</a>. <a href="#name-non-deterministic-signature" class="xref">Non-deterministic Signature Primitives</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.20">
+                <p id="section-toc.1-1.7.2.20.1"><a href="#section-7.20" class="xref">7.20</a>. <a href="#name-choosing-signature-paramete" class="xref">Choosing Signature Parameters and Derived Components over HTTP Fields</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
@@ -1416,10 +1419,10 @@ This document also describes a means for requesting that a signature be applied 
                     <p id="section-toc.1-1.11.2.1.2.3.1"><a href="#appendix-B.1.3" class="xref">B.1.3</a>.  <a href="#name-example-ecc-p-256-test-key" class="xref">Example ECC P-256 Test Key</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1.2.4">
-                    <p id="section-toc.1-1.11.2.1.2.4.1"><a href="#appendix-B.1.4" class="xref">B.1.4</a>.  <a href="#name-example-shared-secret" class="xref">Example Shared Secret</a></p>
+                    <p id="section-toc.1-1.11.2.1.2.4.1"><a href="#appendix-B.1.4" class="xref">B.1.4</a>.  <a href="#name-example-ed25519-test-key" class="xref">Example Ed25519 Test Key</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1.2.5">
-                    <p id="section-toc.1-1.11.2.1.2.5.1"><a href="#appendix-B.1.5" class="xref">B.1.5</a>.  <a href="#name-example-ed25519-test-key" class="xref">Example Ed25519 Test Key</a></p>
+                    <p id="section-toc.1-1.11.2.1.2.5.1"><a href="#appendix-B.1.5" class="xref">B.1.5</a>.  <a href="#name-example-shared-secret" class="xref">Example Shared Secret</a></p>
 </li>
                 </ul>
 </li>
@@ -1687,9 +1690,9 @@ component-identifier = sf-string parameters
 </li>
           <li id="section-2.1-4.2">Strip leading and trailing whitespace from each item in the list. Note that since HTTP field values are not allowed to contain leading and trailing whitespace, this will be a no-op in a compliant implementation.<a href="#section-2.1-4.2" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.1-4.3">Remove any obsolete line-folding within the line and replace it with a single space (<code></code>), as discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-messaging-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>. Note that this behavior is specific to <span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span> and does not apply to other versions of the HTTP specification.<a href="#section-2.1-4.3" class="pilcrow">¶</a>
+          <li id="section-2.1-4.3">Remove any obsolete line-folding within the line and replace it with a single space (" "), as discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-messaging-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>. Note that this behavior is specific to <span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span> and does not apply to other versions of the HTTP specification.<a href="#section-2.1-4.3" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.1-4.4">Concatenate the list of values together with a single comma (<code>,</code>) and a single space (<code></code>) between each item.<a href="#section-2.1-4.4" class="pilcrow">¶</a>
+          <li id="section-2.1-4.4">Concatenate the list of values together with a single comma (",") and a single space (" ") between each item.<a href="#section-2.1-4.4" class="pilcrow">¶</a>
 </li>
         </ol>
 <p id="section-2.1-5">The resulting string is the canonicalized component value.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
@@ -1773,21 +1776,22 @@ Example-Dict:  a=1,    b=2;x=1;y=2,   c=(a   b   c)
 <p id="section-2.1.2-1">An individual member in the value of a Dictionary Structured Field is identified by using the parameter <code>key</code> to indicate the member key as an <code>sf-string</code> value.<a href="#section-2.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-2.1.2-2">An individual member in the value of a Dictionary Structured Field is canonicalized by applying the serialization algorithm described in <span><a href="https://rfc-editor.org/rfc/rfc8941#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#RFC8941" class="xref">RFC8941</a>]</span> on the member value and its parameters, without the dictionary key.<a href="#section-2.1.2-2" class="pilcrow">¶</a></p>
 <p id="section-2.1.2-3">Each parameterized key for a given field <span class="bcp14">MUST NOT</span> appear more than once in the signature input. Parameterized keys <span class="bcp14">MAY</span> appear in any order.<a href="#section-2.1.2-3" class="pilcrow">¶</a></p>
-<p id="section-2.1.2-4">Following are non-normative examples of canonicalized values for Dictionary Structured Field Members given the following example header field, whose value is known to be a Dictionary:<a href="#section-2.1.2-4" class="pilcrow">¶</a></p>
-<div id="section-2.1.2-5">
+<p id="section-2.1.2-4">If a dictionary key is named as a covered component but it does not occur in the dictionary, this <span class="bcp14">MUST</span> cause an error in the signature input string generation.<a href="#section-2.1.2-4" class="pilcrow">¶</a></p>
+<p id="section-2.1.2-5">Following are non-normative examples of canonicalized values for Dictionary Structured Field Members given the following example header field, whose value is known to be a Dictionary:<a href="#section-2.1.2-5" class="pilcrow">¶</a></p>
+<div id="section-2.1.2-6">
 <pre class="lang-http-message sourcecode">
 Example-Dict:  a=1, b=2;x=1;y=2, c=(a   b    c)
-</pre><a href="#section-2.1.2-5" class="pilcrow">¶</a>
+</pre><a href="#section-2.1.2-6" class="pilcrow">¶</a>
 </div>
-<p id="section-2.1.2-6">The following example shows canonicalized values for different component identifiers of this field, presented using the signature input string format discussed in <a href="#create-sig-input" class="xref">Section 2.3</a>:<a href="#section-2.1.2-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.1.2-7">
+<p id="section-2.1.2-7">The following example shows canonicalized values for different component identifiers of this field, presented using the signature input string format discussed in <a href="#create-sig-input" class="xref">Section 2.3</a>:<a href="#section-2.1.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.1.2-8">
 <pre>
 "example-dict";key="a": 1
 "example-dict";key="b": 2;x=1;y=2
 "example-dict";key="c": (a b c)
-</pre><a href="#section-2.1.2-7" class="pilcrow">¶</a>
+</pre><a href="#section-2.1.2-8" class="pilcrow">¶</a>
 </div>
-<p id="section-2.1.2-8">Note that the value for <code>key="c"</code> has been re-serialized.<a href="#section-2.1.2-8" class="pilcrow">¶</a></p>
+<p id="section-2.1.2-9">Note that the value for <code>key="c"</code> has been re-serialized.<a href="#section-2.1.2-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="absent-http-fields">
@@ -2049,6 +2053,7 @@ Host: www.example.com
 </pre><a href="#section-2.2.4-5" class="pilcrow">¶</a>
 </div>
 <p id="section-2.2.4-6">If used in a related-response, the <code>@authority</code> component identifier refers to the associated component value of the request that triggered the response message being signed.<a href="#section-2.2.4-6" class="pilcrow">¶</a></p>
+<p id="section-2.2.4-7">The <code>@authority</code> derived component <span class="bcp14">SHOULD</span> be used instead signing the <code>Host</code> header directly, see <a href="#security-not-fields" class="xref">Section 7.20</a>.<a href="#section-2.2.4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="content-request-scheme">
@@ -2199,7 +2204,13 @@ Host: www.example.com
 "@query": ?queryString
 </pre><a href="#section-2.2.8-9" class="pilcrow">¶</a>
 </div>
-<p id="section-2.2.8-10">If used in a related-response, the <code>@query</code> component identifier refers to the associated component value of the request that triggered the response message being signed.<a href="#section-2.2.8-10" class="pilcrow">¶</a></p>
+<p id="section-2.2.8-10">If the query string is absent from the request message, the value is the leading <code>?</code> character alone:<a href="#section-2.2.8-10" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.2.8-11">
+<pre>
+"@query": ?
+</pre><a href="#section-2.2.8-11" class="pilcrow">¶</a>
+</div>
+<p id="section-2.2.8-12">If used in a related-response, the <code>@query</code> component identifier refers to the associated component value of the request that triggered the response message being signed.<a href="#section-2.2.8-12" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="content-request-query-params">
@@ -2215,8 +2226,7 @@ Single named parameters <span class="bcp14">MAY</span> occur in any order in the
 <p id="section-2.2.9-2">The component value of a single named parameter is the the <code>valueString</code> of the named query parameter defined by <span><a href="#HTMLURL" class="xref">HTMLURL, Section 5.1</a> [<a href="#HTMLURL" class="xref">HTMLURL</a>]</span>, which is the value after percent-encoded octets are decoded.
 Note that this value does not include any leading <code>?</code> characters, equals sign <code>=</code>, or separating <code>&amp;</code> characters.
 Named query parameters with an empty <code>valueString</code> are included with an empty string as the component value.<a href="#section-2.2.9-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.9-3">If a parameter name occurs multiple times in a request, all parameter values of that name <span class="bcp14">MUST</span> be included
-in separate signature input lines in the order in which the parameters occur in the target URI.<a href="#section-2.2.9-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.9-3">If a query parameter is named as a covered component but it does not occur in the query parameters, this <span class="bcp14">MUST</span> cause an error in the signature input string generation.<a href="#section-2.2.9-3" class="pilcrow">¶</a></p>
 <p id="section-2.2.9-4">For example for the following request:<a href="#section-2.2.9-4" class="pilcrow">¶</a></p>
 <div id="section-2.2.9-5">
 <pre class="lang-http-message sourcecode">
@@ -2232,7 +2242,9 @@ Host: www.example.com
 "@query-params";name="param": value
 </pre><a href="#section-2.2.9-7" class="pilcrow">¶</a>
 </div>
-<p id="section-2.2.9-8">If used in a related-response, the <code>@query-params</code> component identifier refers to the associated component value of the request that triggered the response message being signed.<a href="#section-2.2.9-8" class="pilcrow">¶</a></p>
+<p id="section-2.2.9-8">If a parameter name occurs multiple times in a request, all parameter values of that name <span class="bcp14">MUST</span> be included
+in separate signature input lines in the order in which the parameters occur in the target URI. Note that in some implementations, the order of parsed query parameters is not stable, and this situation could lead to unexpected results. If multiple parameters are common within an application, it is <span class="bcp14">RECOMMENDED</span> to sign the entire query string using the <code>@query</code> component identifier defined in <a href="#content-request-query" class="xref">Section 2.2.8</a>.<a href="#section-2.2.9-8" class="pilcrow">¶</a></p>
+<p id="section-2.2.9-9">If used in a related-response, the <code>@query-params</code> component identifier refers to the associated component value of the request that triggered the response message being signed.<a href="#section-2.2.9-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="content-status-code">
@@ -2463,7 +2475,7 @@ NOTE: '\' line wrapping per RFC 8792
 <a href="#name-non-normative-example-signa" class="selfRef">Non-normative example Signature Input</a>
           </figcaption></figure>
 </div>
-<p id="section-2.3-11">Note that the example signature input here, or anywhere else within this specification, does not include the final newline that ends the example.<a href="#section-2.3-11" class="pilcrow">¶</a></p>
+<p id="section-2.3-11">Note that the example signature input here, or anywhere else within this specification, does not include the final newline that ends the displayed example.<a href="#section-2.3-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2682,7 +2694,7 @@ material (<code>Kv</code>), and the presented signature to be verified as a byte
 HTTP_VERIFY (M, Kv, S) -&gt; V
 </pre><a href="#section-3.3-5" class="pilcrow">¶</a>
 </div>
-<p id="section-3.3-6">This section contains several common algorithm methods. The method to use can be communicated through the algorithm signature parameter
+<p id="section-3.3-6">This section contains several common algorithm methods. The method to use can be communicated through the explicit algorithm signature parameter <code>alg</code>
 defined in <a href="#signature-params" class="xref">Section 2.2.1</a>, by reference to the key material, or through mutual agreement between the signer and verifier.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
 <div id="method-rsa-pss-sha512">
 <section id="section-3.3.1">
@@ -2782,7 +2794,7 @@ JWS algorithm definition determines the signature and hashing algorithms to appl
 The JOSE Header defined in <span>[<a href="#RFC7517" class="xref">RFC7517</a>]</span> is not used, and the signature input string is not first encoded in Base64 before applying the algorithm.
 The output of the JWS signature is taken as a byte array prior to the Base64url encoding used in JOSE.<a href="#section-3.3.6-2" class="pilcrow">¶</a></p>
 <p id="section-3.3.6-3">The JWS algorithm <span class="bcp14">MUST NOT</span> be <code>none</code> and <span class="bcp14">MUST NOT</span> be any algorithm with a JOSE Implementation Requirement of <code>Prohibited</code>.<a href="#section-3.3.6-3" class="pilcrow">¶</a></p>
-<p id="section-3.3.6-4">There is no use of the explicit <code>alg</code> signature parameter when using JOSE signing algorithms, as they can be signaled using JSON Web Keys or other mechanisms.<a href="#section-3.3.6-4" class="pilcrow">¶</a></p>
+<p id="section-3.3.6-4">JWA algorithm values from the JSON Web Signature and Encryption Algorithms Registry are not included as signature parameters. In fact, the explicit <code>alg</code> signature parameter is not used at all when using JOSE signing algorithms, as the JWS algorithm can be signaled using JSON Web Keys or other mechanisms common to JOSE implementations.<a href="#section-3.3.6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2807,9 +2819,9 @@ the <code>Signature</code> HTTP field contains the signature value, while the <c
 <pre class="lang-http-message sourcecode">
 NOTE: '\' line wrapping per RFC 8792
 
-Signature-Input: sig1=("@method" "@target-uri" "host" "date" \
-  "cache-control");created=1618884475\
-  ;keyid="test-key-rsa-pss"
+Signature-Input: sig1=("@method" "@target-uri" "@authority" \
+  "content-digest" "cache-control");\
+  created=1618884475;keyid="test-key-rsa-pss"
 </pre><a href="#section-4.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.1-3">To facilitate signature validation, the <code>Signature-Input</code> field value <span class="bcp14">MUST</span> contain the same serialized value used
@@ -2987,9 +2999,9 @@ Signature:  sig1=:LAH8BjcfcOcLojiuOBFWn0P5keD3xAOuJRGziCLuD8r5MW9S0\
 <pre class="lang-http-message sourcecode">
 NOTE: '\' line wrapping per RFC 8792
 
-Accept-Signature: sig1=("@method" "@target-uri" "host" "date" \
-  "cache-control")\
-  ;keyid="test-key-rsa-pss"
+Accept-Signature: sig1=("@method" "@target-uri" "@authority" \
+  "content-digest" "cache-control");\
+  created=1618884475;keyid="test-key-rsa-pss"
 </pre><a href="#section-5.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1-3">The requested signature <span class="bcp14">MAY</span> include parameters, such as a desired algorithm or key identifier. These parameters <span class="bcp14">MUST NOT</span> include parameters that the signer is expected to generate, including the <code>created</code> and <code>nonce</code> parameters.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
@@ -3614,6 +3626,28 @@ Specification document(s):  </dt>
 <p id="section-7.19-1">Some cryptographic primitives such as RSA PSS and ECDSA have non-deterministic outputs, which include some amount of entropy within the algorithm. For such algorithms, multiple signatures generated in succession will not match. A lazy implementation of a verifier could ignore this distinction and simply check for the same value being created by re-signing the signature input. Such an implementation would work for deterministic algorithms such as HMAC and EdDSA but fail to verify valid signatures made using non-deterministic algorithms. It is therefore important that a verifier always use the correctly-defined verification function for the algorithm in question and not do a simple comparison.<a href="#section-7.19-1" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="security-not-fields">
+<section id="section-7.20">
+        <h3 id="name-choosing-signature-paramete">
+<a href="#section-7.20" class="section-number selfRef">7.20. </a><a href="#name-choosing-signature-paramete" class="section-name selfRef">Choosing Signature Parameters and Derived Components over HTTP Fields</a>
+        </h3>
+<p id="section-7.20-1">Some HTTP fields have values and interpretations that are similar to HTTP signature parameters or derived components. In most cases, it is more desirable to sign the non-field alternative. In particular, the following fields should usually not be included in the signature unless the application specifically requires it:<a href="#section-7.20-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-7.20-2">
+          <dt id="section-7.20-2.1">
+"date"  </dt>
+          <dd style="margin-left: 1.5em" id="section-7.20-2.2">
+            <p id="section-7.20-2.2.1">The "date" field value represents the timestamp of the HTTP message. However, the creation time of the signature itself is encoded in the <code>created</code> signature parameter. These two values can be different, depending on how the signature and the HTTP message are created and serialized. Applications processing signatures for valid time windows should use the <code>created</code> signature parameter for such calculations. An application could also put limits on how much skew there is between the "date" field and the <code>created</code> signature parameter, in order to limit the application of a generated signature to different HTTP messages. See also <a href="#security-replay" class="xref">Section 7.3</a> and <a href="#security-coverage" class="xref">Section 7.4</a>.<a href="#section-7.20-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-7.20-2.3">
+"host"  </dt>
+          <dd style="margin-left: 1.5em" id="section-7.20-2.4">
+            <p id="section-7.20-2.4.1">The "host" header field is specific to HTTP 1.1, and its functionality is subsumed by the "@authority" derived component, defined in <a href="#content-request-authority" class="xref">Section 2.2.4</a>. In order to preserve the value across different HTTP versions, applications should always use the "@authority" derived component.<a href="#section-7.20-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 </div>
 <div id="privacy">
@@ -3779,6 +3813,8 @@ Specification document(s):  </dt>
       <h2 id="name-examples">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
+<p id="appendix-B-1">The following non-normative examples are provided as a means of testing implementations of HTTP Message Signatures. The signed messages given can be used to create the signature input strings with the stated parameters, creating signatures using the stated algorithms and keys.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">The private keys given can be used to generate signatures, though since several of the demonstrated algorithms are nondeterministic, the results of a signature are expected to be different from the exact bytes of the examples. The public keys given can be used to validate all signed examples.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <div id="example-keys">
 <section id="appendix-B.1">
         <h3 id="name-example-keys">
@@ -3786,13 +3822,20 @@ Specification document(s):  </dt>
         </h3>
 <p id="appendix-B.1-1">This section provides cryptographic keys that are referenced in example signatures throughout this document.  These keys <span class="bcp14">MUST NOT</span> be used for any purpose other than testing.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-B.1-2">The key identifiers for each key are used throughout the examples in this specification. It is assumed for these examples that the signer and verifier can unambiguously dereference all key identifiers used here, and that the keys and algorithms used are appropriate for the context in which the signature is presented.<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-3">The components for each private key in PEM format can be displayed by executing the following OpenSSL command:<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1-4">
+<pre>
+openssl pkey -text
+</pre><a href="#appendix-B.1-4" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B.1-5">This command was tested with all the example keys on OpenSSL version 1.1.1m. Note that some systems cannot produce or use these keys directly, and may require additional processing.<a href="#appendix-B.1-5" class="pilcrow">¶</a></p>
 <div id="example-key-rsa-test">
 <section id="appendix-B.1.1">
           <h4 id="name-example-key-rsa-test">
 <a href="#appendix-B.1.1" class="section-number selfRef">B.1.1. </a><a href="#name-example-key-rsa-test" class="section-name selfRef">Example Key RSA test</a>
           </h4>
 <p id="appendix-B.1.1-1">The following key is a 2048-bit RSA public and private key pair, referred to in this document
-as <code>test-key-rsa</code>:<a href="#appendix-B.1.1-1" class="pilcrow">¶</a></p>
+as <code>test-key-rsa</code>. This key is encoded in PEM Format, with no encryption.<a href="#appendix-B.1.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1.1-2">
 <pre>
 -----BEGIN RSA PUBLIC KEY-----
@@ -3841,7 +3884,7 @@ EQeNC8fHGg4UXU8mhHnSBt3EA10qQJfRDs15M38eG2cYwB1PZpDHScDnDA0=
 <a href="#appendix-B.1.2" class="section-number selfRef">B.1.2. </a><a href="#name-example-rsa-pss-key" class="section-name selfRef">Example RSA PSS Key</a>
           </h4>
 <p id="appendix-B.1.2-1">The following key is a 2048-bit RSA public and private key pair, referred to in this document
-as <code>test-key-rsa-pss</code>:<a href="#appendix-B.1.2-1" class="pilcrow">¶</a></p>
+as <code>test-key-rsa-pss</code>. This key is PCKS#8 encoded in PEM format, with no encryption.<a href="#appendix-B.1.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1.2-2">
 <pre>
 -----BEGIN PUBLIC KEY-----
@@ -3891,56 +3934,56 @@ rOjr9w349JooGXhOxbu8nOxX
           <h4 id="name-example-ecc-p-256-test-key">
 <a href="#appendix-B.1.3" class="section-number selfRef">B.1.3. </a><a href="#name-example-ecc-p-256-test-key" class="section-name selfRef">Example ECC P-256 Test Key</a>
           </h4>
-<p id="appendix-B.1.3-1">The following key is an elliptical curve key over the curve P-256, referred
-to in this document as <code>test-key-ecc-p256</code>.<a href="#appendix-B.1.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1.3-1">The following key is a public and private elliptical curve key pair over the curve P-256, referred
+to in this document as `test-key-ecc-p256. This key is encoded in PEM format, with no encryption.<a href="#appendix-B.1.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1.3-2">
 <pre>
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEqIVYZVLCrPZHGHjP17CTW0/+D9Lf
+w0EkjqF7xB4FivAxzic30tMM4GF+hR6Dxh71Z50VGGdldkkDXZCnTNnoXQ==
+-----END PUBLIC KEY-----
+
 -----BEGIN EC PRIVATE KEY-----
 MHcCAQEEIFKbhfNZfpDsW43+0+JjUr9K+bTeuxopu653+hBaXGA7oAoGCCqGSM49
 AwEHoUQDQgAEqIVYZVLCrPZHGHjP17CTW0/+D9Lfw0EkjqF7xB4FivAxzic30tMM
 4GF+hR6Dxh71Z50VGGdldkkDXZCnTNnoXQ==
 -----END EC PRIVATE KEY-----
-
------BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEqIVYZVLCrPZHGHjP17CTW0/+D9Lf
-w0EkjqF7xB4FivAxzic30tMM4GF+hR6Dxh71Z50VGGdldkkDXZCnTNnoXQ==
------END PUBLIC KEY-----
 </pre><a href="#appendix-B.1.3-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
-<div id="example-shared-secret">
+<div id="example-key-ed25519">
 <section id="appendix-B.1.4">
-          <h4 id="name-example-shared-secret">
-<a href="#appendix-B.1.4" class="section-number selfRef">B.1.4. </a><a href="#name-example-shared-secret" class="section-name selfRef">Example Shared Secret</a>
+          <h4 id="name-example-ed25519-test-key">
+<a href="#appendix-B.1.4" class="section-number selfRef">B.1.4. </a><a href="#name-example-ed25519-test-key" class="section-name selfRef">Example Ed25519 Test Key</a>
           </h4>
-<p id="appendix-B.1.4-1">The following shared secret is 64 randomly-generated bytes encoded in Base64,
-referred to in this document as <code>test-shared-secret</code>.<a href="#appendix-B.1.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1.4-1">The following key is an elliptical curve key over the Edwards curve ed25519, referred to in this document as <code>test-key-edd25519</code>. This key is PCKS#8 encoded in PEM format, with no encryption.<a href="#appendix-B.1.4-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1.4-2">
+<pre>
+-----BEGIN PUBLIC KEY-----
+MCowBQYDK2VwAyEAJrQLj5P/89iXES9+vFgrIy29clF9CC/oPPsw3c5D0bs=
+-----END PUBLIC KEY-----
+
+-----BEGIN PRIVATE KEY-----
+MC4CAQAwBQYDK2VwBCIEIJ+DYvh6SEqVTm50DFtMDoQikTmiCqirVv9mWG9qfSnF
+-----END PRIVATE KEY-----
+</pre><a href="#appendix-B.1.4-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="example-shared-secret">
+<section id="appendix-B.1.5">
+          <h4 id="name-example-shared-secret">
+<a href="#appendix-B.1.5" class="section-number selfRef">B.1.5. </a><a href="#name-example-shared-secret" class="section-name selfRef">Example Shared Secret</a>
+          </h4>
+<p id="appendix-B.1.5-1">The following shared secret is 64 randomly-generated bytes encoded in Base64,
+referred to in this document as <code>test-shared-secret</code>.<a href="#appendix-B.1.5-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.5-2">
 <pre>
 NOTE: '\' line wrapping per RFC 8792
 
 uzvJfB4u3N0Jy4T7NZ75MDVcr8zSTInedJtkgcu46YW4XByzNJjxBdtjUkdJPBt\
   bmHhIDi6pcl8jsasjlTMtDQ==
-</pre><a href="#appendix-B.1.4-2" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="example-key-ed25519">
-<section id="appendix-B.1.5">
-          <h4 id="name-example-ed25519-test-key">
-<a href="#appendix-B.1.5" class="section-number selfRef">B.1.5. </a><a href="#name-example-ed25519-test-key" class="section-name selfRef">Example Ed25519 Test Key</a>
-          </h4>
-<p id="appendix-B.1.5-1">The following key is an elliptical curve key over the Edwards curve ed25519, referred to in this document as <code>test-key-edd25519</code>.<a href="#appendix-B.1.5-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1.5-2">
-<pre>
------BEGIN PRIVATE KEY-----
-MC4CAQAwBQYDK2VwBCIEIJ+DYvh6SEqVTm50DFtMDoQikTmiCqirVv9mWG9qfSnF
------END PRIVATE KEY-----
-
------BEGIN PUBLIC KEY-----
-MCowBQYDK2VwAyEAJrQLj5P/89iXES9+vFgrIy29clF9CC/oPPsw3c5D0bs=
------END PUBLIC KEY-----
 </pre><a href="#appendix-B.1.5-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -4092,7 +4135,7 @@ Signature: sig-b23=:bbN8oArOxYoyylQQUU6QYwrTuaxLwjAC9fbY2F6SVWvh0yB\
   JzSRxpJyoEZAFL2FUo5fTIztsDZKEgM4cUA==:
 </pre><a href="#appendix-B.2.3-5" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.3-6">Note in this example that the value of the <code>Date</code> header and the value of the <code>created</code> signature parameter need not be the same. This is due to the fact that the <code>Date</code> header is added when creating the HTTP Message and the <code>created</code> parameter is populated when creating the signature over that message, and these two times could vary. If the <code>Date</code> header is covered by the signature, it is up to the verifier to determine whether its value has to match that of the <code>created</code> parameter or not.<a href="#appendix-B.2.3-6" class="pilcrow">¶</a></p>
+<p id="appendix-B.2.3-6">Note in this example that the value of the <code>Date</code> header and the value of the <code>created</code> signature parameter need not be the same. This is due to the fact that the <code>Date</code> header is added when creating the HTTP Message and the <code>created</code> parameter is populated when creating the signature over that message, and these two times could vary. If the <code>Date</code> header is covered by the signature, it is up to the verifier to determine whether its value has to match that of the <code>created</code> parameter or not. See <a href="#security-not-fields" class="xref">Section 7.20</a> for more discussion.<a href="#appendix-B.2.3-6" class="pilcrow">¶</a></p>
 <p id="appendix-B.2.3-7">Note that the RSA PSS algorithm in use here is non-deterministic, meaning a different signature value will be created every time the algorithm is run. The signature value provided here can be validated against the given keys, but newly-generated signature values are not expected to match the example. See <a href="#security-nondeterministic" class="xref">Section 7.19</a>.<a href="#appendix-B.2.3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -4212,7 +4255,7 @@ Signature: sig-b26=:wqcAqbmYJ2ji2glfAMaRy4gruYYnx2nEFN2HN6jrnDnQCK1\
 <p id="appendix-B.3-2">The client makes the following request to the TLS terminating proxy using mutual TLS:<a href="#appendix-B.3-2" class="pilcrow">¶</a></p>
 <div id="appendix-B.3-3">
 <pre class="lang-http-message sourcecode">
-POST /foo?Param=value&amp;pet=Dog HTTP/1.1
+POST /foo?param=Value&amp;Pet=dog HTTP/1.1
 Host: example.com
 Date: Tue, 20 Apr 2021 02:07:55 GMT
 Content-Type: application/json
@@ -4339,6 +4382,7 @@ Roberto Polli,
 Julian Reschke,
 Michael Richardson,
 Wojciech Rygielski,
+Rich Salz,
 Adam Scarr,
 Cory J. Slep,
 Dirk Stein,
@@ -4361,7 +4405,11 @@ Jeffrey Yasskin.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <li class="normal" id="appendix-D-2.1.2.1">
               <p id="appendix-D-2.1.2.1.1">-09<a href="#appendix-D-2.1.2.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-D-2.1.2.1.2.1">Added "absent" header parameter.<a href="#appendix-D-2.1.2.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-D-2.1.2.1.2.1">Explained key formats better.<a href="#appendix-D-2.1.2.1.2.1" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-D-2.1.2.1.2.2">Removed "host" and "date" from most examples.<a href="#appendix-D-2.1.2.1.2.2" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-D-2.1.2.1.2.3">Added "absent" header parameter.<a href="#appendix-D-2.1.2.1.2.3" class="pilcrow">¶</a>
 </li>
               </ul>
 </li>
