@@ -200,8 +200,8 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   The terms Boolean, Dictionary, and Integer, along with the sf-
-   dictionary rule, are imported from [STRUCTURED-FIELDS].
+   This document uses the Boolean, Dictionary, and Integer types from
+   [STRUCTURED-FIELDS] along with the sf-dictionary ABNF rule.
 
    Example HTTP requests and responses use the HTTP/2-style formatting
    from [HTTP2].
