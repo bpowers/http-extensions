@@ -78,29 +78,26 @@ Table of Contents
      1.3.  Obsoleting RFC 3230
      1.4.  Notational Conventions
    2.  The Representation-Digest Field
+     2.1.  Using Representation-Digest in State-Changing Requests
+     2.2.  Representation-Digest and Content-Location in Responses
    3.  The Content-Digest Field
    4.  Integrity preference fields
    5.  Hash Algorithms for HTTP Digest Fields Registry
-   6.  Using Representation-Digest in State-Changing Requests
-     6.1.  Representation-Digest and Content-Location in Responses
-   7.  Security Considerations
-     7.1.  HTTP Messages Are Not Protected In Full
-     7.2.  End-to-End Integrity
-     7.3.  Usage in Signatures
-     7.4.  Usage in Trailer Fields
-     7.5.  Usage with Encryption
-     7.6.  Algorithm Agility
-     7.7.  Resource exhaustion
-   8.  IANA Considerations
-     8.1.  Establish the Hash Algorithms for HTTP Digest Fields
+   6.  Security Considerations
+     6.1.  HTTP Messages Are Not Protected In Full
+     6.2.  End-to-End Integrity
+     6.3.  Usage in Signatures
+     6.4.  Usage in Trailer Fields
+     6.5.  Usage with Encryption
+     6.6.  Algorithm Agility
+     6.7.  Resource exhaustion
+   7.  IANA Considerations
+     7.1.  HTTP Field Name Registration
+     7.2.  Establish the Hash Algorithms for HTTP Digest Fields
            Registry
-     8.2.  Representation-Digest Field Registration
-     8.3.  Content-Digest Field Registration
-     8.4.  Want-Representation-Digest Field Registration
-     8.5.  Want-Content-Digest Field Registration
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Appendix A.  Resource Representation and Representation Data
    Appendix B.  Examples of Unsolicited Digest
      B.1.  Server Returns Full Representation Data
@@ -176,7 +173,7 @@ Table of Contents
    *  Section 5 describes algorithms and their relation to the fields
       defined in this document,
 
-   *  Section 6 details computing representation digests,
+   *  Section 2.1 details computing representation digests,
 
    *  Appendix B and Appendix C provide examples of using
       Representation-Digest and Want-Representation-Digest.
@@ -196,8 +193,8 @@ Table of Contents
 
    This document defines the Representation-Digest request and response
    header and trailer field (Section 2) that contains a digest value
-   computed by applying a hashing algorithm to selected representation
-   data (Section 3.2 of [SEMANTICS]).  Basing Representation-Digest on
+   computed by applying a hashing algorithm to _selected representation
+   data_ (Section 3.2 of [SEMANTICS]).  Basing Representation-Digest on
    the selected representation makes it straightforward to apply it to
    use-cases where the transferred data requires some sort of
    manipulation to be considered a representation or conveys a partial
@@ -237,7 +234,7 @@ Table of Contents
    integrity.  It also coined the term "instance" and "instance
    manipulation" in order to explain concepts that are now more
    universally defined, and implemented, as HTTP semantics such as
-   selected representation data (Section 3.2 of [SEMANTICS]).
+   _selected representation data_ (Section 3.2 of [SEMANTICS]).
 
    Experience has shown that implementations of [RFC3230] have
    interpreted the meaning of "instance" inconsistently, leading to
@@ -271,8 +268,9 @@ Table of Contents
    and sf-binary are imported from [STRUCTURED-FIELDS].
 
    The definitions "representation", "selected representation",
-   "representation data", "representation metadata", and "content" in
-   this document are to be interpreted as described in [SEMANTICS].
+   "representation data", "representation metadata", "user agent" and
+   "content" in this document are to be interpreted as described in
+   [SEMANTICS].
 
    Hashing algorithm names respect the casing used in their definition
    document (e.g.  SHA-1, CRC32c) whereas hashing algorithm keys are
@@ -292,7 +290,7 @@ Table of Contents
 
    The Representation-Digest HTTP field can be used in requests and
    responses to communicate digests that are calculated using a hashing
-   algorithm applied to the entire selected representation data (see
+   algorithm applied to the entire selected _representation data_ (see
    Section 8.1 of [SEMANTICS]).
 
    Representations take into account the effect of the HTTP semantics on
@@ -305,7 +303,7 @@ Table of Contents
 
    When a message has no representation data it is still possible to
    assert that no representation data was sent computing the digest on
-   an empty string (see Section 7.3).
+   an empty string (see Section 6.3).
 
    Representation-Digest is a Structured Fields Dictionary (see
    Section 3.2 of [STRUCTURED-FIELDS]) where: * keys convey the hashing
@@ -327,7 +325,7 @@ Table of Contents
    digests calculated using different hashing algorithms in order to
    support a population of endpoints with different or evolving
    capabilities.  Such an approach could support transitions away from
-   weaker algorithms (see Section 7.6).
+   weaker algorithms (see Section 6.6).
 
    NOTE: '\' line wrapping per RFC 8792
 
@@ -347,6 +345,46 @@ Table of Contents
    Representation-Digest can be sent in a trailer section.  In this
    case, Representation-Digest MAY be merged into the header section;
    see Section 6.5.1 of [SEMANTICS].
+
+2.1.  Using Representation-Digest in State-Changing Requests
+
+   When the representation enclosed in a state-changing request does not
+   describe the target resource, the representation digest MUST be
+   computed on the representation data.  This is the only possible
+   choice because representation digest requires complete representation
+   metadata (see Section 2).
+
+   In responses,
+
+   *  if the representation describes the status of the request,
+      Representation-Digest MUST be computed on the enclosed
+      representation (see Appendix B.8 );
+
+   *  if there is a referenced resource Representation-Digest MUST be
+      computed on the selected representation of the referenced resource
+      even if that is different from the target resource.  That might or
+      might not result in computing Representation-Digest on the
+      enclosed representation.
+
+   The latter case is done according to the HTTP semantics of the given
+   method, for example using the Content-Location header field (see
+   Section 8.7 of [SEMANTICS]).  In contrast, the Location header field
+   does not affect Representation-Digest because it is not
+   representation metadata.
+
+   For example, in PATCH requests, the representation digest will be
+   computed on the patch document because the representation metadata
+   refers to the patch document and not to the target resource (see
+   Section 2 of [PATCH]).  In responses, instead, the representation
+   digest will be computed on the selected representation of the patched
+   resource.
+
+2.2.  Representation-Digest and Content-Location in Responses
+
+   When a state-changing method returns the Content-Location header
+   field, the enclosed representation refers to the resource identified
+   by its value and Representation-Digest is computed accordingly.  An
+   example is given in Appendix B.7.
 
 3.  The Content-Digest Field
 
@@ -373,7 +411,7 @@ Table of Contents
    digests calculated using different hashing algorithms in order to
    support a population of endpoints with different or evolving
    capabilities.  Such an approach could support transitions away from
-   weaker algorithms (see Section 7.6).
+   weaker algorithms (see Section 6.6).
 
    NOTE: '\' line wrapping per RFC 8792
 
@@ -517,113 +555,68 @@ Table of Contents
 
                      Table 1: Initial Hash Algorithms
 
-6.  Using Representation-Digest in State-Changing Requests
+6.  Security Considerations
 
-   When the representation enclosed in a state-changing request does not
-   describe the target resource, the representation digest MUST be
-   computed on the representation data.  This is the only possible
-   choice because representation digest requires complete representation
-   metadata (see Section 2).
-
-   In responses,
-
-   *  if the representation describes the status of the request,
-      Representation-Digest MUST be computed on the enclosed
-      representation (see Appendix B.8 );
-
-   *  if there is a referenced resource Representation-Digest MUST be
-      computed on the selected representation of the referenced resource
-      even if that is different from the target resource.  That might or
-      might not result in computing Representation-Digest on the
-      enclosed representation.
-
-   The latter case is done according to the HTTP semantics of the given
-   method, for example using the Content-Location header field (see
-   Section 8.7 of [SEMANTICS]).  In contrast, the Location header field
-   does not affect Representation-Digest because it is not
-   representation metadata.
-
-   For example, in PATCH requests, the representation digest will be
-   computed on the patch document because the representation metadata
-   refers to the patch document and not to the target resource (see
-   Section 2 of [PATCH]).  In responses, instead, the representation
-   digest will be computed on the selected representation of the patched
-   resource.
-
-6.1.  Representation-Digest and Content-Location in Responses
-
-   When a state-changing method returns the Content-Location header
-   field, the enclosed representation refers to the resource identified
-   by its value and Representation-Digest is computed accordingly.  An
-   example is given in Appendix B.7.
-
-7.  Security Considerations
-
-7.1.  HTTP Messages Are Not Protected In Full
+6.1.  HTTP Messages Are Not Protected In Full
 
    This document specifies a data integrity mechanism that protects HTTP
-   representation data or content, but not HTTP header and trailer
+   _representation data_ or content, but not HTTP header and trailer
    fields, from certain kinds of corruption.
 
-   Digest fields are not intended to be a general protection against
+   Integrity fields are not intended to be a general protection against
    malicious tampering with HTTP messages.  This can be achieved by
    combining it with other approaches such as transport-layer security
    or digital signatures.
 
-7.2.  End-to-End Integrity
+6.2.  End-to-End Integrity
 
-   Representation-Digest and Content-Digest can help detect
-   representation data or content modification due to implementation
-   errors, undesired "transforming proxies" (see Section 7.7 of
-   [SEMANTICS]) or other actions as the data passes across multiple hops
-   or system boundaries.  Even a simple mechanism for end-to-end
-   representation data integrity is valuable because user-agent can
-   validate that resource retrieval succeeded before handing off to a
-   HTML parser, video player etc. for parsing.
+   Integrity fields can help detect _representation data_ or content
+   modification due to implementation errors, undesired "transforming
+   proxies" (see Section 7.7 of [SEMANTICS]) or other actions as the
+   data passes across multiple hops or system boundaries.  Even a simple
+   mechanism for end-to-end _representation data_ integrity is valuable
+   because a _user agent_ can validate that resource retrieval succeeded
+   before handing off to a HTML parser, video player etc. for parsing.
 
    Note that using these mechanisms alone does not provide end-to-end
    integrity of HTTP messages over multiple hops, since metadata could
    be manipulated at any stage.  Methods to protect metadata are
-   discussed in Section 7.3.
+   discussed in Section 6.3.
 
-7.3.  Usage in Signatures
+6.3.  Usage in Signatures
 
    Digital signatures are widely used together with checksums to provide
    the certain identification of the origin of a message [NIST800-32].
    Such signatures can protect one or more HTTP fields and there are
-   additional considerations when Representation-Digest or Content-
-   Digest is included in this set.
+   additional considerations when Integrity fields are included in this
+   set.
 
    Digests explicitly depend on the "representation metadata" (e.g. the
    values of Content-Type, Content-Encoding etc).  A signature that
-   protects Representation-Digest but not other "representation
-   metadata" can expose the communication to tampering.  For example, an
-   actor could manipulate the Content-Type field-value and cause a
-   digest validation failure at the recipient, preventing the
-   application from accessing the representation.  Such an attack
-   consumes the resources of both endpoints.  See also Section 6.1.
+   protects Integrity fields but not other "representation metadata" can
+   expose the communication to tampering.  For example, an actor could
+   manipulate the Content-Type field-value and cause a digest validation
+   failure at the recipient, preventing the application from accessing
+   the representation.  Such an attack consumes the resources of both
+   endpoints.  See also Section 2.2.
 
-   Digest fields SHOULD always be used over a connection that provides
-   integrity at the transport layer that protects HTTP fields.
+   Signatures are likely to be deemed an adversarial setting when
+   applying Integrity fields; see Section 5.  Using signatures to
+   protect the checksum of an empty representation allows receiving
+   endpoints to detect if an eventual payload has been stripped or
+   added.
 
-   A Representation-Digest field using NOT RECOMMENDED hashing
-   algorithms SHOULD NOT be used in signatures.
-
-   Using signatures to protect the checksum of an empty representation
-   allows receiving endpoints to detect if an eventual payload has been
-   stripped or added.
-
-   Any mangling of digest fields, including digests' de-duplication or
-   combining different field values (see Section 5.2 of [SEMANTICS])
+   Any mangling of Integrity fields, including digests' de-duplication
+   or combining different field values (see Section 5.2 of [SEMANTICS])
    might affect signature validation.
 
-7.4.  Usage in Trailer Fields
+6.4.  Usage in Trailer Fields
 
-   Before sending digest fields in a trailer section, the sender should
-   consider that intermediaries are explicitly allowed to drop any
-   trailer (see Section 6.5.2 of [SEMANTICS]).
+   Before sending Integrity fields in a trailer section, the sender
+   should consider that intermediaries are explicitly allowed to drop
+   any trailer (see Section 6.5.2 of [SEMANTICS]).
 
-   When digest fields are used in a trailer section, the field-values
+   When Integrity fields are used in a trailer section, the field-values
    are received after the content.  Eager processing of content before
    the trailer section prevents digest validation, possibly leading to
    processing of invalid data.
@@ -632,29 +625,40 @@ Table of Contents
    section, some may require to pre-process the whole payload before
    sending a message (e.g. see [I-D.thomson-http-mice]).
 
-7.5.  Usage with Encryption
+6.5.  Usage with Encryption
 
    The checksum of an encrypted payload can change between different
    messages depending on the encryption algorithm used; in those cases
    its value could not be used to provide a proof of integrity "at rest"
    unless the whole (e.g. encoded) content is persisted.
 
-7.6.  Algorithm Agility
+6.6.  Algorithm Agility
 
    The security properties of hashing algorithms are not fixed.
    Algorithm Agility (see [RFC7696]) is achieved by providing
    implementations with flexibility to choose hashing algorithms from
    the IANA Hash Algorithms for HTTP Digest Fields registry; see
-   Section 8.1.
+   Section 7.2.
 
-   An endpoint might have a preference for algorithms, such as
-   preferring "standard" algorithms over "insecure" ones.  Transition
-   from weak algorithms is supported by negotiation of hashing algorithm
-   using Want-Representation-Digest or Want-Content-Digest (see
-   Section 4) or by sending multiple digests from which the receiver
-   chooses.  Endpoints are advised that sending multiple values consumes
-   resources, which may be wasted if the receiver ignores them (see
-   Section 2).
+   The "standard" algorithms listed in this document are suitable for
+   many purposes, including adversarial situations where hash functions
+   might need to provide resistance to collision, first-preimage and
+   second-preimage attacks.  Algorithms listed as "insecure" either
+   provide none of these properties, or are known to be weak (see
+   [NO-MD5] and [NO-SHA]).
+
+   For adversarial situations, which of the "standard" algorithms are
+   acceptable will depend on the level of protection the circumstances
+   demand.  As there is no negotiation, endpoints that depend on a
+   digest for security will be vulnerable to attacks on the weakest
+   algorithm they are willing to accept.
+
+   Transition from weak algorithms is supported by negotiation of
+   hashing algorithm using Want-Representation-Digest or Want-Content-
+   Digest (see Section 4) or by sending multiple digests from which the
+   receiver chooses.  Endpoints are advised that sending multiple values
+   consumes resources, which may be wasted if the receiver ignores them
+   (see Section 2).
 
    While algorithm agility allows the migration to stronger algorithms
    it does not prevent the use of weaker algorithms.  Integrity fields
@@ -664,16 +668,45 @@ Table of Contents
    algorithms to stronger ones and protect the fields value by using TLS
    and/or digital signatures.
 
-7.7.  Resource exhaustion
+6.7.  Resource exhaustion
 
-   Digest fields validation consumes computational resources.  In order
-   to avoid resource exhaustion, implementations can restrict validation
-   of the algorithm types, number of validations, or the size of
-   content.
+   Integrity fields validation consumes computational resources.  In
+   order to avoid resource exhaustion, implementations can restrict
+   validation of the algorithm types, number of validations, or the size
+   of content.
 
-8.  IANA Considerations
+7.  IANA Considerations
 
-8.1.  Establish the Hash Algorithms for HTTP Digest Fields Registry
+7.1.  HTTP Field Name Registration
+
+   IANA is asked to update the "Hypertext Transfer Protocol (HTTP) Field
+   Name Registry" registry ([SEMANTICS]) according to the table below:
+
+    +============================+===========+========================+
+    | Field Name                 | Status    | Reference              |
+    +============================+===========+========================+
+    | Representation-Digest      | permanent | Section 2 of this      |
+    |                            |           | document               |
+    +----------------------------+-----------+------------------------+
+    | Content-Digest             | permanent | Section 3 of this      |
+    |                            |           | document               |
+    +----------------------------+-----------+------------------------+
+    | Want-Representation-Digest | permanent | Section 4 of this      |
+    |                            |           | document               |
+    +----------------------------+-----------+------------------------+
+    | Want-Content-Digest        | permanent | Section 4 of this      |
+    |                            |           | document               |
+    +----------------------------+-----------+------------------------+
+    | Digest                     | obsoleted | [RFC3230], Section 1.3 |
+    |                            |           | of this document       |
+    +----------------------------+-----------+------------------------+
+    | Want-Digest                | obsoleted | [RFC3230], Section 1.3 |
+    |                            |           | of this document       |
+    +----------------------------+-----------+------------------------+
+
+                                  Table 2
+
+7.2.  Establish the Hash Algorithms for HTTP Digest Fields Registry
 
    This memo sets this specification to be the establishing document for
    the Hash Algorithms for HTTP Digest Fields
@@ -682,53 +715,9 @@ Table of Contents
 
    IANA is asked to initialize the registry with the entries in Table 1.
 
-8.2.  Representation-Digest Field Registration
+8.  References
 
-   This section registers the Representation-Digest field in the
-   "Hypertext Transfer Protocol (HTTP) Field Name Registry" [SEMANTICS].
-
-   Field name: Representation-Digest
-
-   Status: permanent
-
-   Specification document(s): Section 2 of this document
-
-8.3.  Content-Digest Field Registration
-
-   This section registers the Content-Digest field in the "Hypertext
-   Transfer Protocol (HTTP) Field Name Registry" [SEMANTICS].
-
-   Field name: Content-Digest
-
-   Status: permanent
-
-   Specification document(s): Section 3 of this document
-
-8.4.  Want-Representation-Digest Field Registration
-
-   This section registers the Want-Representation-Digest field in the
-   "Hypertext Transfer Protocol (HTTP) Field Name Registry" [SEMANTICS].
-
-   Field name: Want-Representation-Digest
-
-   Status: permanent
-
-   Specification document(s): Section 4 of this document
-
-8.5.  Want-Content-Digest Field Registration
-
-   This section registers the Want-Content-Digest field in the
-   "Hypertext Transfer Protocol (HTTP) Field Name Registry" [SEMANTICS].
-
-   Field name: Want-Content-Digest
-
-   Status: permanent
-
-   Specification document(s): Section 4 of this document
-
-9.  References
-
-9.1.  Normative References
+8.1.  Normative References
 
    [CMU-836068]
               Carnagie Mellon University, Software Engineering
@@ -814,7 +803,7 @@ Table of Contents
    [UNIX]     The Open Group, "The Single UNIX Specification, Version 2
               - 6 Vol Set for UNIX 98", February 1997.
 
-9.2.  Informative References
+8.2.  Informative References
 
    [HTTP11]   Fielding, R. T., Nottingham, M., and J. Reschke,
               "HTTP/1.1", Work in Progress, Internet-Draft, draft-ietf-
@@ -981,8 +970,9 @@ Appendix B.  Examples of Unsolicited Digest
 B.1.  Server Returns Full Representation Data
 
    In this example, the message content conveys complete representation
-   data, so Representation-Digest and Content-Digest have the same
-   value.
+   data.  This means that in the response, Representation-Digest and
+   Content-Digest are both computed over the JSON object {"hello":
+   "world"}, and thus have the same value.
 
    GET /items/123 HTTP/1.1
    Host: foo.example
@@ -1000,7 +990,8 @@ B.1.  Server Returns Full Representation Data
 
    {"hello": "world"}
 
-                  Figure 11: Response with Content-Digest
+        Figure 11: Response with identical Representation-Digest and
+                               Content-Digest
 
 B.2.  Server Returns No Representation Data
 
@@ -1031,10 +1022,7 @@ B.2.  Server Returns No Representation Data
 B.3.  Server Returns Partial Representation Data
 
    In this example, the client makes a range request and the server
-   responds with partial content.  The Representation-Digest field-value
-   represents the entire JSON object {"hello": "world"}, while the
-   Content-Digest field-value is computed on the message content
-   "hello".
+   responds with partial content.
 
    GET /items/123 HTTP/1.1
    Host: foo.example
@@ -1054,7 +1042,27 @@ B.3.  Server Returns Partial Representation Data
 
    "hello"
 
-      Figure 15: Partial response with both Content-Digest and Digest
+          Figure 15: Partial response with both Content-Digest and
+                           Representation-Digest
+
+   In the response message above, note that the Representation-Digest
+   and Content-Digests are different.  The Representation-Digest field-
+   value is calculated across the entire JSON object {"hello": "world"},
+   and the field is
+
+   NOTE: '\' line wrapping per RFC 8792
+
+   Representation-Digest: \
+     sha-256=:X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=:`
+
+   However, since the message content is constrained to bytes 1-7, the
+   Content-Digest field-value is calculated over the byte sequence
+   "hello", thus resulting in
+
+   NOTE: '\' line wrapping per RFC 8792
+
+   Content-Digest: \
+     sha-256=:Wqdirjg/u3J688ejbUlApbjECpiUUtIwT8lY/z81Tno=:
 
 B.4.  Client and Server Provide Full Representation Data
 
@@ -1166,7 +1174,7 @@ B.6.  Client and Server Provide Full Representation Data
 B.7.  POST Response does not Reference the Request URI
 
    The request Representation-Digest field-value is computed on the
-   enclosed representation (see Section 6).
+   enclosed representation (see Section 2.1).
 
    The representation enclosed in the response refers to the resource
    identified by Content-Location (see Section 6.4.2 of [SEMANTICS]).
@@ -1211,7 +1219,7 @@ B.7.  POST Response does not Reference the Request URI
 B.8.  POST Response Describes the Request Status
 
    The request Representation-Digest field-value is computed on the
-   enclosed representation (see Section 6).
+   enclosed representation (see Section 2.1).
 
    The representation enclosed in the response describes the status of
    the request, so Representation-Digest is computed on that enclosed
