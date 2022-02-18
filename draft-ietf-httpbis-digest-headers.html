@@ -1201,19 +1201,10 @@ fields.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-establish-the-hash-algorith" class="xref">Establish the Hash Algorithms for HTTP Digest Fields Registry</a></p>
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-http-field-name-registratio" class="xref">HTTP Field Name Registration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-representation-digest-field" class="xref">Representation-Digest Field Registration</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="xref">7.3</a>.  <a href="#name-content-digest-field-regist" class="xref">Content-Digest Field Registration</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
-                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="xref">7.4</a>.  <a href="#name-want-representation-digest-" class="xref">Want-Representation-Digest Field Registration</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5">
-                <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="xref">7.5</a>.  <a href="#name-want-content-digest-field-r" class="xref">Want-Content-Digest Field Registration</a></p>
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-establish-the-hash-algorith" class="xref">Establish the Hash Algorithms for HTTP Digest Fields Registry</a></p>
 </li>
             </ul>
 </li>
@@ -1880,7 +1871,7 @@ a proof of integrity "at rest" unless the whole (e.g. encoded) content is persis
 <p id="section-6.6-1">The security properties of hashing algorithms are not fixed.
 Algorithm Agility (see <span>[<a href="#RFC7696" class="xref">RFC7696</a>]</span>) is achieved by providing implementations with flexibility
 to choose hashing algorithms from the IANA Hash Algorithms for HTTP Digest Fields registry; see
-<a href="#establish-hash-algorithm-registry" class="xref">Section 7.1</a>.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
+<a href="#establish-hash-algorithm-registry" class="xref">Section 7.2</a>.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
 <p id="section-6.6-2">The "standard" algorithms listed in this document are suitable for many purposes,
 including adversarial situations where hash functions might need
 to provide resistance to collision, first-preimage and second-preimage attacks.
@@ -1920,64 +1911,74 @@ validation of the algorithm types, number of validations, or the size of content
       <h2 id="name-iana-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<div id="establish-hash-algorithm-registry">
+<div id="http-field-name-registration">
 <section id="section-7.1">
-        <h3 id="name-establish-the-hash-algorith">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-establish-the-hash-algorith" class="section-name selfRef">Establish the Hash Algorithms for HTTP Digest Fields Registry</a>
+        <h3 id="name-http-field-name-registratio">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-http-field-name-registratio" class="section-name selfRef">HTTP Field Name Registration</a>
         </h3>
-<p id="section-7.1-1">This memo sets this specification to be the establishing document for the
-<a href="https://www.iana.org/assignments/http-structured-dig-alg/">Hash Algorithms for HTTP Digest Fields</a>
-registry defined in <a href="#algorithms" class="xref">Section 5</a>.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">IANA is asked to initialize the registry with the entries in
-<a href="#iana-hash-algorithm-table" class="xref">Table 1</a>.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">IANA is asked to update the
+"Hypertext Transfer Protocol (HTTP) Field Name Registry" registry
+(<span>[<a href="#SEMANTICS" class="xref">SEMANTICS</a>]</span>) according to the table below:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+          <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Field Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Status</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Representation-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#representation-digest" class="xref">Section 2</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Content-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#content-digest" class="xref">Section 3</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Want-Representation-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#want-fields" class="xref">Section 4</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Want-Content-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#want-fields" class="xref">Section 4</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">obsoleted</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <span>[<a href="#RFC3230" class="xref">RFC3230</a>]</span>, <a href="#obsolete-3230" class="xref">Section 1.3</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Want-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">obsoleted</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <span>[<a href="#RFC3230" class="xref">RFC3230</a>]</span>, <a href="#obsolete-3230" class="xref">Section 1.3</a> of this document</td>
+            </tr>
+          </tbody>
+        </table>
 </section>
 </div>
-<div id="representation-digest-field-registration">
+<div id="establish-hash-algorithm-registry">
 <section id="section-7.2">
-        <h3 id="name-representation-digest-field">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-representation-digest-field" class="section-name selfRef">Representation-Digest Field Registration</a>
+        <h3 id="name-establish-the-hash-algorith">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-establish-the-hash-algorith" class="section-name selfRef">Establish the Hash Algorithms for HTTP Digest Fields Registry</a>
         </h3>
-<p id="section-7.2-1">This section registers the <code>Representation-Digest</code> field in the "Hypertext Transfer Protocol
-(HTTP) Field Name Registry" <span>[<a href="#SEMANTICS" class="xref">SEMANTICS</a>]</span>.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2-2">Field name:  <code>Representation-Digest</code><a href="#section-7.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2-3">Status:  permanent<a href="#section-7.2-3" class="pilcrow">¶</a></p>
-<p id="section-7.2-4">Specification document(s):  <a href="#representation-digest" class="xref">Section 2</a> of this document<a href="#section-7.2-4" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="content-digest-field-registration">
-<section id="section-7.3">
-        <h3 id="name-content-digest-field-regist">
-<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-content-digest-field-regist" class="section-name selfRef">Content-Digest Field Registration</a>
-        </h3>
-<p id="section-7.3-1">This section registers the <code>Content-Digest</code> field in the "Hypertext Transfer Protocol
-(HTTP) Field Name Registry" <span>[<a href="#SEMANTICS" class="xref">SEMANTICS</a>]</span>.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.3-2">Field name:  <code>Content-Digest</code><a href="#section-7.3-2" class="pilcrow">¶</a></p>
-<p id="section-7.3-3">Status:  permanent<a href="#section-7.3-3" class="pilcrow">¶</a></p>
-<p id="section-7.3-4">Specification document(s):  <a href="#content-digest" class="xref">Section 3</a> of this document<a href="#section-7.3-4" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="want-representation-digest-field-registration">
-<section id="section-7.4">
-        <h3 id="name-want-representation-digest-">
-<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-want-representation-digest-" class="section-name selfRef">Want-Representation-Digest Field Registration</a>
-        </h3>
-<p id="section-7.4-1">This section registers the <code>Want-Representation-Digest</code> field in the "Hypertext Transfer
-Protocol (HTTP) Field Name Registry" <span>[<a href="#SEMANTICS" class="xref">SEMANTICS</a>]</span>.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
-<p id="section-7.4-2">Field name:  <code>Want-Representation-Digest</code><a href="#section-7.4-2" class="pilcrow">¶</a></p>
-<p id="section-7.4-3">Status:  permanent<a href="#section-7.4-3" class="pilcrow">¶</a></p>
-<p id="section-7.4-4">Specification document(s):  <a href="#want-fields" class="xref">Section 4</a> of this document<a href="#section-7.4-4" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="want-content-digest-field-registration">
-<section id="section-7.5">
-        <h3 id="name-want-content-digest-field-r">
-<a href="#section-7.5" class="section-number selfRef">7.5. </a><a href="#name-want-content-digest-field-r" class="section-name selfRef">Want-Content-Digest Field Registration</a>
-        </h3>
-<p id="section-7.5-1">This section registers the <code>Want-Content-Digest</code> field in the "Hypertext Transfer
-Protocol (HTTP) Field Name Registry" <span>[<a href="#SEMANTICS" class="xref">SEMANTICS</a>]</span>.<a href="#section-7.5-1" class="pilcrow">¶</a></p>
-<p id="section-7.5-2">Field name:  <code>Want-Content-Digest</code><a href="#section-7.5-2" class="pilcrow">¶</a></p>
-<p id="section-7.5-3">Status:  permanent<a href="#section-7.5-3" class="pilcrow">¶</a></p>
-<p id="section-7.5-4">Specification document(s):  <a href="#want-fields" class="xref">Section 4</a> of this document<a href="#section-7.5-4" class="pilcrow">¶</a></p>
+<p id="section-7.2-1">This memo sets this specification to be the establishing document for the
+<a href="https://www.iana.org/assignments/http-structured-dig-alg/">Hash Algorithms for HTTP Digest Fields</a>
+registry defined in <a href="#algorithms" class="xref">Section 5</a>.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">IANA is asked to initialize the registry with the entries in
+<a href="#iana-hash-algorithm-table" class="xref">Table 1</a>.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
