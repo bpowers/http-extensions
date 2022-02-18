@@ -5,10 +5,10 @@
 HTTP                                                     A. Backman, Ed.
 Internet-Draft                                                    Amazon
 Intended status: Standards Track                               J. Richer
-Expires: 20 August 2022                              Bespoke Engineering
+Expires: 22 August 2022                              Bespoke Engineering
                                                                M. Sporny
                                                           Digital Bazaar
-                                                        16 February 2022
+                                                        18 February 2022
 
 
                         HTTP Message Signatures
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2022.
+   This Internet-Draft will expire on 22 August 2022.
 
 Copyright Notice
 
@@ -3596,14 +3596,12 @@ Authors' Addresses
    P.O. Box 81226
    Seattle, WA 98108-1226
    United States of America
-
    Email: richanna@amazon.com
    URI:   https://www.amazon.com/
 
 
    Justin Richer
    Bespoke Engineering
-
    Email: ietf@justin.richer.org
    URI:   https://bspk.io/
 
@@ -3613,6 +3611,5 @@ Authors' Addresses
    203 Roanoke Street W.
    Blacksburg, VA 24060
    United States of America
-
    Email: msporny@digitalbazaar.com
    URI:   https://manu.sporny.org/
