@@ -5,10 +5,10 @@
 HTTP                                                     A. Backman, Ed.
 Internet-Draft                                                    Amazon
 Intended status: Standards Track                               J. Richer
-Expires: 20 August 2022                              Bespoke Engineering
+Expires: 22 August 2022                              Bespoke Engineering
                                                                M. Sporny
                                                           Digital Bazaar
-                                                        16 February 2022
+                                                        18 February 2022
 
 
                         HTTP Message Signatures
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2022.
+   This Internet-Draft will expire on 22 August 2022.
 
 Copyright Notice
 
@@ -588,6 +588,19 @@ Table of Contents
    Note: these are shown here using the line wrapping algorithm in
    [RFC8792] due to limitations in the document format that strips
    trailing spaces from diagrams.
+
+   Any HTTP field content identifiers MAY have the following parameters
+   in specific circumstances.
+
+   sf  A boolean flag indicating that the field value is to be
+      canonicalized using strict encoding of the structured field value.
+      Section 2.1.1
+
+   key  A string parameter used to select a single member value from a
+      dictionary structured field.  Section 2.1.2
+
+   absent  A boolean flag indicating that the field does not occur in
+      the target message.  Section 2.1.3
 
 2.1.1.  Canonicalized Structured HTTP Fields
 
@@ -3713,14 +3726,12 @@ Authors' Addresses
    P.O. Box 81226
    Seattle, WA 98108-1226
    United States of America
-
    Email: richanna@amazon.com
    URI:   https://www.amazon.com/
 
 
    Justin Richer
    Bespoke Engineering
-
    Email: ietf@justin.richer.org
    URI:   https://bspk.io/
 
@@ -3730,6 +3741,5 @@ Authors' Addresses
    203 Roanoke Street W.
    Blacksburg, VA 24060
    United States of America
-
    Email: msporny@digitalbazaar.com
    URI:   https://manu.sporny.org/

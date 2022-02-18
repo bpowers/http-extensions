@@ -5,8 +5,8 @@
 HTTP                                                              K. Oku
 Internet-Draft                                                    Fastly
 Intended status: Standards Track                               L. Pardue
-Expires: 20 August 2022                                       Cloudflare
-                                                        16 February 2022
+Expires: 22 August 2022                                       Cloudflare
+                                                        18 February 2022
 
 
                Extensible Prioritization Scheme for HTTP
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2022.
+   This Internet-Draft will expire on 22 August 2022.
 
 Copyright Notice
 
@@ -1133,7 +1133,7 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-lassey-
               priority-setting-00>.
 
-   [MARX]     Marx, R., Decker, T.D., Quax, P., and W. Lamotte, "Of the
+   [MARX]     Marx, R., Decker, T. D., Quax, P., and W. Lamotte, "Of the
               Utmost Importance: Resource Prioritization in HTTP/3 over
               QUIC", DOI 10.5220/0008191701300143,
               SCITEPRESS Proceedings of the 15th International
@@ -1332,11 +1332,9 @@ Authors' Addresses
 
    Kazuho Oku
    Fastly
-
    Email: kazuhooku@gmail.com
 
 
    Lucas Pardue
    Cloudflare
-
    Email: lucaspardue.24.7@gmail.com
