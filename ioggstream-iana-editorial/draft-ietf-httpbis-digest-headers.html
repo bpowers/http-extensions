@@ -1201,7 +1201,10 @@ fields.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-establish-the-hash-algorith" class="xref">Establish the Hash Algorithms for HTTP Digest Fields Registry</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-http-field-name-registratio" class="xref">HTTP Field Name Registration</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-establish-the-hash-algorith" class="xref">Establish the Hash Algorithms for HTTP Digest Fields Registry</a></p>
 </li>
             </ul>
 </li>
@@ -1867,7 +1870,7 @@ a proof of integrity "at rest" unless the whole (e.g. encoded) content is persis
 <p id="section-7.6-1">The security properties of hashing algorithms are not fixed.
 Algorithm Agility (see <span>[<a href="#RFC7696" class="xref">RFC7696</a>]</span>) is achieved by providing implementations with flexibility
 to choose hashing algorithms from the IANA Hash Algorithms for HTTP Digest Fields registry; see
-<a href="#establish-hash-algorithm-registry" class="xref">Section 8.1</a>.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
+<a href="#establish-hash-algorithm-registry" class="xref">Section 8.2</a>.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
 <p id="section-7.6-2">The "standard" algorithms listed in this document are suitable for many purposes,
 including adversarial situations where hash functions might need
 to provide resistance to collision, first-preimage and second-preimage attacks.
@@ -1907,62 +1910,68 @@ validation of the algorithm types, number of validations, or the size of content
       <h2 id="name-iana-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">IANA is requested to update one registry and create one new registry.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">Please update the
-"Hypertext Transfer Protocol (HTTP) Field Name Registry" registry
-(<span>[<a href="#SEMANTICS" class="xref">SEMANTICS</a>]</span>) according to the table below:<a href="#section-8-2" class="pilcrow">¶</a></p>
-<table class="center" id="table-2">
-        <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
-<thead>
-          <tr>
-            <th class="text-left" rowspan="1" colspan="1">Field Name</th>
-            <th class="text-left" rowspan="1" colspan="1">Status</th>
-            <th class="text-left" rowspan="1" colspan="1">Reference</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Representation-Digest</td>
-            <td class="text-left" rowspan="1" colspan="1">permanent</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <a href="#representation-digest" class="xref">Section 2</a> of this document</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Content-Digest</td>
-            <td class="text-left" rowspan="1" colspan="1">permanent</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <a href="#content-digest" class="xref">Section 3</a> of this document</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Want-Representation-Digest</td>
-            <td class="text-left" rowspan="1" colspan="1">permanent</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <a href="#want-fields" class="xref">Section 4</a> of this document</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Want-Content-Digest</td>
-            <td class="text-left" rowspan="1" colspan="1">permanent</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <a href="#want-fields" class="xref">Section 4</a> of this document</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Digest</td>
-            <td class="text-left" rowspan="1" colspan="1">obsoleted</td>
-            <td class="text-left" rowspan="1" colspan="1">
-              <span>[<a href="#RFC3230" class="xref">RFC3230</a>]</span>, <a href="#obsolete-3230" class="xref">Section 1.3</a> of this document</td>
-          </tr>
-        </tbody>
-      </table>
-<div id="establish-hash-algorithm-registry">
+<div id="http-field-name-registration">
 <section id="section-8.1">
-        <h3 id="name-establish-the-hash-algorith">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-establish-the-hash-algorith" class="section-name selfRef">Establish the Hash Algorithms for HTTP Digest Fields Registry</a>
+        <h3 id="name-http-field-name-registratio">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-http-field-name-registratio" class="section-name selfRef">HTTP Field Name Registration</a>
         </h3>
-<p id="section-8.1-1">This memo sets this specification to be the establishing document for the
+<p id="section-8.1-1">IANA is asked to update the
+"Hypertext Transfer Protocol (HTTP) Field Name Registry" registry
+(<span>[<a href="#SEMANTICS" class="xref">SEMANTICS</a>]</span>) according to the table below:<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+          <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Field Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Status</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Representation-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#representation-digest" class="xref">Section 2</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Content-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#content-digest" class="xref">Section 3</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Want-Representation-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#want-fields" class="xref">Section 4</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Want-Content-Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">permanent</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#want-fields" class="xref">Section 4</a> of this document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Digest</td>
+              <td class="text-left" rowspan="1" colspan="1">obsoleted</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <span>[<a href="#RFC3230" class="xref">RFC3230</a>]</span>, <a href="#obsolete-3230" class="xref">Section 1.3</a> of this document</td>
+            </tr>
+          </tbody>
+        </table>
+</section>
+</div>
+<div id="establish-hash-algorithm-registry">
+<section id="section-8.2">
+        <h3 id="name-establish-the-hash-algorith">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-establish-the-hash-algorith" class="section-name selfRef">Establish the Hash Algorithms for HTTP Digest Fields Registry</a>
+        </h3>
+<p id="section-8.2-1">This memo sets this specification to be the establishing document for the
 <a href="https://www.iana.org/assignments/http-structured-dig-alg/">Hash Algorithms for HTTP Digest Fields</a>
-registry defined in <a href="#algorithms" class="xref">Section 5</a>.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
-<p id="section-8.1-2">IANA is asked to initialize the registry with the entries in
-<a href="#iana-hash-algorithm-table" class="xref">Table 1</a>.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+registry defined in <a href="#algorithms" class="xref">Section 5</a>.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">IANA is asked to initialize the registry with the entries in
+<a href="#iana-hash-algorithm-table" class="xref">Table 1</a>.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
