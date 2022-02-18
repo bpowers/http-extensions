@@ -2276,8 +2276,8 @@ While examples can include both fields,
 <a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-server-returns-full-represe" class="section-name selfRef">Server Returns Full Representation Data</a>
         </h3>
 <p id="appendix-B.1-1">In this example, the message content conveys complete representation data.
-This means that in the response <code>Representation-Digest</code> and <code>Content-Digest</code>
-are computed on the same value <code>{"hello": "world"}</code>, and have the same value.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+This means that in the response, <code>Representation-Digest</code> and <code>Content-Digest</code>
+are both computed over the JSON object <code>{"hello": "world"}</code>, and thus have the same value.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <span id="name-get-request-for-an-item"></span><figure id="figure-10">
           <div id="appendix-B.1-2.1">
 <pre class="lang-http-message sourcecode">
@@ -2289,7 +2289,7 @@ Host: foo.example
 <figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
 <a href="#name-get-request-for-an-item" class="selfRef">GET request for an item</a>
           </figcaption></figure>
-<span id="name-response-where-representati"></span><figure id="figure-11">
+<span id="name-response-with-identical-rep"></span><figure id="figure-11">
           <div id="appendix-B.1-3.1">
 <pre class="lang-http-message sourcecode">
 NOTE: '\' line wrapping per RFC 8792
@@ -2305,7 +2305,7 @@ Content-Digest: \
 </pre>
 </div>
 <figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
-<a href="#name-response-where-representati" class="selfRef">Response where Representation-Digest is the same as Content-Digest</a>
+<a href="#name-response-with-identical-rep" class="selfRef">Response with identical Representation-Digest and Content-Digest</a>
           </figcaption></figure>
 </section>
 </div>
@@ -2388,9 +2388,10 @@ Content-Digest: \
 <figcaption><a href="#figure-15" class="selfRef">Figure 15</a>:
 <a href="#name-partial-response-with-both-" class="selfRef">Partial response with both Content-Digest and Representation-Digest</a>
           </figcaption></figure>
-<p id="appendix-B.3-4">In the response message above, we note that
-the <code>Representation-Digest</code> field-value is calculated across the entire JSON object
-<code>{"hello": "world"}</code>, and the field will be<a href="#appendix-B.3-4" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-4">In the response message above, note that the
+<code>Representation-Digest</code> and <code>Content-Digests</code> are different.
+The <code>Representation-Digest</code> field-value is calculated across the entire JSON object
+<code>{"hello": "world"}</code>, and the field is<a href="#appendix-B.3-4" class="pilcrow">¶</a></p>
 <div id="appendix-B.3-5">
 <pre class="lang-http-message sourcecode">
 NOTE: '\' line wrapping per RFC 8792
