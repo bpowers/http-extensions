@@ -1880,19 +1880,26 @@ a proof of integrity "at rest" unless the whole (e.g. encoded) content is persis
 Algorithm Agility (see <span>[<a href="#RFC7696" class="xref">RFC7696</a>]</span>) is achieved by providing implementations with flexibility
 to choose hashing algorithms from the IANA Hash Algorithms for HTTP Digest Fields registry; see
 <a href="#establish-hash-algorithm-registry" class="xref">Section 8.1</a>.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
-<p id="section-7.6-2">An endpoint might have a preference for algorithms,
-such as preferring "standard" algorithms over "insecure" ones.
-Transition from weak algorithms is supported
+<p id="section-7.6-2">The "standard" algorithms listed in this document are suitable for many purposes,
+including adversarial situations where hash functions might need
+to provide resistance to collision, first-preimage and second-preimage attacks.
+Algorithms listed as "insecure" either provide none of these properties,
+or are known to be weak (see <span>[<a href="#NO-MD5" class="xref">NO-MD5</a>]</span> and <span>[<a href="#NO-SHA" class="xref">NO-SHA</a>]</span>).<a href="#section-7.6-2" class="pilcrow">¶</a></p>
+<p id="section-7.6-3">For adversarial situations, which of the "standard" algorithms are acceptable
+will depend on the level of protection the circumstances demand.
+As there is no negotiation, endpoints that depend on a digest for security
+will be vulnerable to attacks on the weakest algorithm they are willing to accept.<a href="#section-7.6-3" class="pilcrow">¶</a></p>
+<p id="section-7.6-4">Transition from weak algorithms is supported
 by negotiation of hashing algorithm using <code>Want-Representation-Digest</code> or <code>Want-Content-Digest</code> (see <a href="#want-fields" class="xref">Section 4</a>)
 or by sending multiple representation-data-digest values from which the receiver chooses.
 Endpoints are advised that sending multiple values consumes resources,
-which may be wasted if the receiver ignores them (see <a href="#representation-digest" class="xref">Section 2</a>).<a href="#section-7.6-2" class="pilcrow">¶</a></p>
-<p id="section-7.6-3">While algorithm agility allows the migration to stronger algorithms
+which may be wasted if the receiver ignores them (see <a href="#representation-digest" class="xref">Section 2</a>).<a href="#section-7.6-4" class="pilcrow">¶</a></p>
+<p id="section-7.6-5">While algorithm agility allows the migration to stronger algorithms
 it does not prevent the use of weaker algorithms.
 Integrity fields do not provide any mitigiations for downgrade or substitution
 attacks (see Section 1 of <span>[<a href="#RFC6211" class="xref">RFC6211</a>]</span>) of the hashing algorithm.
 To protect against such attacks, endpoints could restrict their set of supported algorithms
-to stronger ones and protect the fields value by using TLS and/or digital signatures.<a href="#section-7.6-3" class="pilcrow">¶</a></p>
+to stronger ones and protect the fields value by using TLS and/or digital signatures.<a href="#section-7.6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="resource-exhaustion">
