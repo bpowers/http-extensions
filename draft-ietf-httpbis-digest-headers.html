@@ -2275,8 +2275,9 @@ While examples can include both fields,
         <h3 id="name-server-returns-full-represe">
 <a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-server-returns-full-represe" class="section-name selfRef">Server Returns Full Representation Data</a>
         </h3>
-<p id="appendix-B.1-1">In this example, the message content conveys complete representation data,
-so <code>Representation-Digest</code> and <code>Content-Digest</code> have the same value.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-1">In this example, the message content conveys complete representation data.
+This means that in the response, <code>Representation-Digest</code> and <code>Content-Digest</code>
+are both computed over the JSON object <code>{"hello": "world"}</code>, and thus have the same value.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <span id="name-get-request-for-an-item"></span><figure id="figure-10">
           <div id="appendix-B.1-2.1">
 <pre class="lang-http-message sourcecode">
@@ -2288,7 +2289,7 @@ Host: foo.example
 <figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
 <a href="#name-get-request-for-an-item" class="selfRef">GET request for an item</a>
           </figcaption></figure>
-<span id="name-response-with-content-diges"></span><figure id="figure-11">
+<span id="name-response-with-identical-rep"></span><figure id="figure-11">
           <div id="appendix-B.1-3.1">
 <pre class="lang-http-message sourcecode">
 NOTE: '\' line wrapping per RFC 8792
@@ -2304,7 +2305,7 @@ Content-Digest: \
 </pre>
 </div>
 <figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
-<a href="#name-response-with-content-diges" class="selfRef">Response with Content-Digest</a>
+<a href="#name-response-with-identical-rep" class="selfRef">Response with identical Representation-Digest and Content-Digest</a>
           </figcaption></figure>
 </section>
 </div>
@@ -2355,9 +2356,7 @@ Content-Digest: \
 <a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-server-returns-partial-repr" class="section-name selfRef">Server Returns Partial Representation Data</a>
         </h3>
 <p id="appendix-B.3-1">In this example, the client makes a range request and the server responds with
-partial content. The <code>Representation-Digest</code> field-value represents the entire JSON object
-<code>{"hello": "world"}</code>, while the <code>Content-Digest</code> field-value is computed on the
-message content <code>"hello"</code>.<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
+partial content.<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
 <span id="name-request-for-partial-content-2"></span><figure id="figure-14">
           <div id="appendix-B.3-2.1">
 <pre class="lang-http-message sourcecode">
@@ -2387,8 +2386,31 @@ Content-Digest: \
 </pre>
 </div>
 <figcaption><a href="#figure-15" class="selfRef">Figure 15</a>:
-<a href="#name-partial-response-with-both-" class="selfRef">Partial response with both Content-Digest and Digest</a>
+<a href="#name-partial-response-with-both-" class="selfRef">Partial response with both Content-Digest and Representation-Digest</a>
           </figcaption></figure>
+<p id="appendix-B.3-4">In the response message above, note that the
+<code>Representation-Digest</code> and <code>Content-Digests</code> are different.
+The <code>Representation-Digest</code> field-value is calculated across the entire JSON object
+<code>{"hello": "world"}</code>, and the field is<a href="#appendix-B.3-4" class="pilcrow">¶</a></p>
+<div id="appendix-B.3-5">
+<pre class="lang-http-message sourcecode">
+NOTE: '\' line wrapping per RFC 8792
+
+Representation-Digest: \
+  sha-256=:X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=:`
+</pre><a href="#appendix-B.3-5" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B.3-6">However, since the message content is constrained to bytes 1-7,
+the <code>Content-Digest</code> field-value is calculated over the
+byte sequence  <code>"hello"</code>, thus resulting in<a href="#appendix-B.3-6" class="pilcrow">¶</a></p>
+<div id="appendix-B.3-7">
+<pre class="lang-http-message sourcecode">
+NOTE: '\' line wrapping per RFC 8792
+
+Content-Digest: \
+  sha-256=:Wqdirjg/u3J688ejbUlApbjECpiUUtIwT8lY/z81Tno=:
+</pre><a href="#appendix-B.3-7" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 <div id="client-and-server-provide-full-representation-data">
