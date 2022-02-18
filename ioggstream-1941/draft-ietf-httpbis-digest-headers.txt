@@ -303,8 +303,8 @@ Table of Contents
    provided in Appendix A.
 
    When a message has no representation data it is still possible to
-   assert that no representation data was sent computing the digest on
-   an empty string (see Section 6.3).
+   assert that no representation data was sent by computing the digest
+   on an empty string (see Section 6.3).
 
    Representation-Digest is a Structured Fields Dictionary (see
    Section 3.2 of [STRUCTURED-FIELDS]) where: * keys convey the hashing
