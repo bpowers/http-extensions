@@ -708,8 +708,14 @@ Table of Contents
     | Digest                     | obsoleted | [RFC3230], Section 1.3 |
     |                            |           | of this document       |
     +----------------------------+-----------+------------------------+
+    | Want-Digest                | obsoleted | [RFC3230], Section 1.3 |
+    |                            |           | of this document       |
+    +----------------------------+-----------+------------------------+
 
                                   Table 2
+
+   |--------------------------------|-----------|-----------------------
+   -----------------------------------------|
 
 8.2.  Establish the Hash Algorithms for HTTP Digest Fields Registry
 
