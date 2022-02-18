@@ -5,8 +5,8 @@
 HTTP                                                              K. Oku
 Internet-Draft                                                    Fastly
 Intended status: Standards Track                               L. Pardue
-Expires: 21 August 2022                                       Cloudflare
-                                                        17 February 2022
+Expires: 22 August 2022                                       Cloudflare
+                                                        18 February 2022
 
 
                Extensible Prioritization Scheme for HTTP
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 August 2022.
+   This Internet-Draft will expire on 22 August 2022.
 
 Copyright Notice
 
@@ -107,22 +107,23 @@ Table of Contents
      17.2.  Informative References
    Appendix A.  Acknowledgements
    Appendix B.  Change Log
-     B.1.  Since draft-ietf-httpbis-priority-10
-     B.2.  Since draft-ietf-httpbis-priority-09
-     B.3.  Since draft-ietf-httpbis-priority-08
-     B.4.  Since draft-ietf-httpbis-priority-07
-     B.5.  Since draft-ietf-httpbis-priority-06
-     B.6.  Since draft-ietf-httpbis-priority-05
-     B.7.  Since draft-ietf-httpbis-priority-04
-     B.8.  Since draft-ietf-httpbis-priority-03
-     B.9.  Since draft-ietf-httpbis-priority-02
-     B.10. Since draft-ietf-httpbis-priority-01
-     B.11. Since draft-ietf-httpbis-priority-00
-     B.12. Since draft-kazuho-httpbis-priority-04
-     B.13. Since draft-kazuho-httpbis-priority-03
-     B.14. Since draft-kazuho-httpbis-priority-02
-     B.15. Since draft-kazuho-httpbis-priority-01
-     B.16. Since draft-kazuho-httpbis-priority-00
+     B.1.  Since draft-ietf-httpbis-priority-11
+     B.2.  Since draft-ietf-httpbis-priority-10
+     B.3.  Since draft-ietf-httpbis-priority-09
+     B.4.  Since draft-ietf-httpbis-priority-08
+     B.5.  Since draft-ietf-httpbis-priority-07
+     B.6.  Since draft-ietf-httpbis-priority-06
+     B.7.  Since draft-ietf-httpbis-priority-05
+     B.8.  Since draft-ietf-httpbis-priority-04
+     B.9.  Since draft-ietf-httpbis-priority-03
+     B.10. Since draft-ietf-httpbis-priority-02
+     B.11. Since draft-ietf-httpbis-priority-01
+     B.12. Since draft-ietf-httpbis-priority-00
+     B.13. Since draft-kazuho-httpbis-priority-04
+     B.14. Since draft-kazuho-httpbis-priority-03
+     B.15. Since draft-kazuho-httpbis-priority-02
+     B.16. Since draft-kazuho-httpbis-priority-01
+     B.17. Since draft-kazuho-httpbis-priority-00
    Authors' Addresses
 
 1.  Introduction
@@ -148,20 +149,23 @@ Table of Contents
    responses, or the chunks of those HTTP responses, that it sends to a
    client.
 
-   A server that operates in ignorance of how clients issue requests and
-   consume responses can cause suboptimal client application
-   performance.  Priority signals allow clients to communicate their
-   view of request priority.  Servers have their own needs that are
-   independent from client needs, so they often combine priority signals
-   with other available information in order to inform scheduling of
-   response data.
+   HTTP/2 and HTTP/3 servers can schedule transmission of concurrent
+   response data by any means they choose.  Servers can ignore client
+   priority signals and still successfully serve HTTP responses.
+   However, servers that operate in ignorance of how clients issue
+   requests and consume responses can cause suboptimal client
+   application performance.  Priority signals allow clients to
+   communicate their view of request priority.  Servers have their own
+   needs that are independent of client needs, so they often combine
+   priority signals with other available information in order to inform
+   scheduling of response data.
 
    RFC 7540 [RFC7540] stream priority allowed a client to send a series
    of priority signals that communicate to the server a "priority tree";
    the structure of this tree represents the client's preferred relative
    ordering and weighted distribution of the bandwidth among HTTP
    responses.  Servers could use these priority signals as input into
-   prioritization decision making.
+   prioritization decision-making.
 
    The design and implementation of RFC 7540 stream priority was
    observed to have shortcomings, explained in Section 2.  HTTP/2
@@ -177,9 +181,9 @@ Table of Contents
    Clients can send this header field to signal their view of how
    responses should be prioritized.  Similarly, servers behind an
    intermediary can use it to signal priority to the intermediary.
-   After sending a request, a client can change the priority of the
-   response (see Section 6) using HTTP-version-specific frames defined
-   in Section 7.1 and Section 7.2.
+   After sending a request, a client can change their view of response
+   priority (see Section 6) by sending HTTP-version-specific frames
+   defined in Section 7.1 and Section 7.2.
 
    Header field and frame priority signals are input to a server's
    response prioritization process.  They are only a suggestion and do
@@ -247,10 +251,10 @@ Table of Contents
    protocols that do not have strong ordering guarantees across streams,
    like HTTP/3 [HTTP3].
 
-   Multiple experiments from independent research ([MARX], [MEENAN])
-   have shown that simpler schemes can reach at least equivalent
-   performance characteristics compared to the more complex RFC 7540
-   setups seen in practice, at least for the web use case.
+   Experiments from independent research ([MARX]) have shown that
+   simpler schemes can reach at least equivalent performance
+   characteristics compared to the more complex RFC 7540 setups seen in
+   practice, at least for the web use case.
 
 2.1.  Disabling RFC 7540 Priorities
 
@@ -341,17 +345,18 @@ Table of Contents
 
    The Priority HTTP header field (Section 5) is an end-to-end way to
    transmit this set of priority parameters when a request or a response
-   is issued.  In order to reprioritize a request (Section 6), HTTP-
-   version-specific PRIORITY_UPDATE frames (Section 7.1 and Section 7.2)
-   are used by clients to transmit the same information on a single hop.
+   is issued.  After sending a request, a client can change their view
+   of response priority (Section 6) by sending HTTP-version-specific
+   PRIORITY_UPDATE frames defined in Section 7.1 and Section 7.2.
+   Frames transmit priority parameters on a single hop only.
 
    Intermediaries can consume and produce priority signals in a
    PRIORITY_UPDATE frame or Priority header field.  Sending a
-   PRIORITY_UPDATE frame preserves the signal from the client, but
-   provides a signal that overrides that for the next hop; see
-   Section 14.  Replacing or adding a Priority header field overrides
-   any signal from a client and can affect prioritization for all
-   subsequent recipients.
+   PRIORITY_UPDATE frame preserves the signal from the client carried by
+   the Priority header field, but provides a signal that overrides that
+   for the next hop; see Section 14.  Replacing or adding a Priority
+   header field overrides any signal from a client and can affect
+   prioritization for all subsequent recipients.
 
    For both the Priority header field and the PRIORITY_UPDATE frame, the
    set of priority parameters is encoded as a Structured Fields
@@ -504,13 +509,13 @@ Table of Contents
 
    The Priority HTTP header field carries priority parameters (see
    Section 4).  It can appear in requests and responses.  It is an end-
-   to-end signal of the request priority from the client or the response
-   priority from the server.  Section 8 describes how intermediaries can
-   combine the priority information sent from clients and servers.
-   Clients cannot interpret the appearance or omission of a Priority
-   response header field as acknowledgement that any prioritization has
-   occurred.  Guidance for how endpoints can act on Priority header
-   values is given in Section 9 and Section 10.
+   to-end signal that indicates the endpoint's view of how HTTP
+   responses should be prioritized.  Section 8 describes how
+   intermediaries can combine the priority information sent from clients
+   and servers.  Clients cannot interpret the appearance or omission of
+   a Priority response header field as acknowledgement that any
+   prioritization has occurred.  Guidance for how endpoints can act on
+   Priority header values is given in Section 9 and Section 10.
 
    Priority is a Dictionary (Section 3.2 of [STRUCTURED-FIELDS]):
 
@@ -547,7 +552,7 @@ Table of Contents
    signal.
 
    PRIORITY_UPDATE frames are sent by clients on the control stream,
-   allowing them to be sent independent from the stream that carries the
+   allowing them to be sent independent of the stream that carries the
    response.  This means they can be used to reprioritize a response or
    a push stream; or signal the initial priority of a response instead
    of the Priority header field.
@@ -591,7 +596,7 @@ Table of Contents
 
    HTTP/2 PRIORITY_UPDATE Frame {
      Length (24),
-     Type (i) = 10,
+     Type (8) = 0x10,
 
      Unused Flags (8).
 
@@ -645,8 +650,9 @@ Table of Contents
    of 0x0, the recipient MUST respond with a connection error of type
    PROTOCOL_ERROR.
 
-   If a client receives a PRIORITY_UPDATE frame, it MUST respond with a
-   connection error of type PROTOCOL_ERROR.
+   Servers MUST NOT send PRIORITY_UPDATE frames.  If a client receives a
+   PRIORITY_UPDATE frame, it MUST respond with a connection error of
+   type PROTOCOL_ERROR.
 
 7.2.  HTTP/3 PRIORITY_UPDATE Frame
 
@@ -700,7 +706,7 @@ Table of Contents
    ID or which has not yet been promised, this MUST be treated as a
    connection error of type H3_ID_ERROR.
 
-   PRIORITY_UPDATE frames of either type are only sent by clients.  If a
+   Servers MUST NOT send PRIORITY_UPDATE frames of either type.  If a
    client receives a PRIORITY_UPDATE frame, this MUST be treated as a
    connection error of type H3_FRAME_UNEXPECTED.
 
@@ -722,7 +728,7 @@ Table of Contents
    that forwards an HTTP response can use the priority parameters found
    in the Priority response header field, in combination with the client
    Priority request header field, as input to its prioritization
-   process.  No guidance is provided for merging priorities, this is
+   process.  No guidance is provided for merging priorities; this is
    left as an implementation decision.
 
    Absence of a priority parameter in an HTTP response indicates the
@@ -794,12 +800,12 @@ Table of Contents
    response order.
 
    Incremental responses of the same urgency SHOULD be served by sharing
-   bandwidth amongst them.  Payload of incremental responses are used in
+   bandwidth among them.  Payload of incremental responses are used in
    parts, or chunks, as they are received.  A client might benefit more
    from receiving a portion of all these resources rather than the
    entirety of a single resource.  How large a portion of the resource
    is needed to be useful in improving performance varies.  Some
-   resource types place critical elements early, others can use
+   resource types place critical elements early; others can use
    information progressively.  This scheme provides no explicit mandate
    about how a server should use size, type or any other input to decide
    how to prioritize.
@@ -807,7 +813,7 @@ Table of Contents
    There can be scenarios where a server will need to schedule multiple
    incremental and non-incremental responses at the same urgency level.
    Strictly abiding the scheduling guidance based on urgency and request
-   generation order might lead to sub-optimal results at the client, as
+   generation order might lead to suboptimal results at the client, as
    early non-incremental responses might prevent serving of incremental
    responses issued later.  The following are examples of such
    challenges.
@@ -926,10 +932,10 @@ Table of Contents
    It is sometimes beneficial for the server running behind an
    intermediary to obey Priority header field values.  As an example, a
    resource-constrained server might defer the transmission of software
-   update files that would have the background urgency being associated.
-   However, in the worst case, the asymmetry between the priority
-   declared by multiple clients might cause responses going to one user
-   agent to be delayed totally after those going to another.
+   update files that have the background urgency.  However, in the worst
+   case, the asymmetry between the priority declared by multiple clients
+   might cause responses going to one user agent to be delayed totally
+   after those going to another.
 
    In order to mitigate this fairness problem, a server could use
    knowledge about the intermediary as another input in its
@@ -982,9 +988,9 @@ Table of Contents
    by-hop frame, the Priority header field is defined as end-to-end.
 
    The way that a client processes a response is a property associated
-   with the client generating that request.  Not that of an
-   intermediary.  Therefore, it is an end-to-end property.  How these
-   end-to-end properties carried by the Priority header field affect the
+   with the client generating that request, not that of an intermediary.
+   Therefore, it is an end-to-end property.  How these end-to-end
+   properties carried by the Priority header field affect the
    prioritization between the responses that share a connection is a
    hop-by-hop issue.
 
@@ -1008,7 +1014,7 @@ Table of Contents
 
 16.  IANA Considerations
 
-   This specification registers the following entry in the the Hypertext
+   This specification registers the following entry in the Hypertext
    Transfer Protocol (HTTP) Field Name Registry established by [HTTP]:
 
    Field name:  Priority
@@ -1135,10 +1141,6 @@ Table of Contents
               (pages 130-143), September 2019,
               <https://www.doi.org/10.5220/0008191701300143>.
 
-   [MEENAN]   Meenan, P., "Better HTTP/2 Prioritization for a Faster
-              Web", 14 May 2019, <https://blog.cloudflare.com/better-
-              http-2-prioritization-for-a-faster-web/>.
-
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", RFC 9002, DOI 10.17487/RFC9002,
@@ -1156,16 +1158,16 @@ Table of Contents
 Appendix A.  Acknowledgements
 
    Roy Fielding presented the idea of using a header field for
-   representing priorities in http://tools.ietf.org/agenda/83/slides/
-   slides-83-httpbis-5.pdf (http://tools.ietf.org/agenda/83/slides/
-   slides-83-httpbis-5.pdf).  In https://github.com/pmeenan/http3-
-   prioritization-proposal (https://github.com/pmeenan/http3-
-   prioritization-proposal), Patrick Meenan advocated for representing
-   the priorities using a tuple of urgency and concurrency.  The ability
-   to disable HTTP/2 prioritization is inspired by
-   [I-D.lassey-priority-setting], authored by Brad Lassey and Lucas
-   Pardue, with modifications based on feedback that was not
-   incorporated into an update to that document.
+   representing priorities in
+   https://www.ietf.org/proceedings/83/slides/slides-83-httpbis-5.pdf
+   (https://www.ietf.org/proceedings/83/slides/slides-83-httpbis-5.pdf).
+   In https://github.com/pmeenan/http3-prioritization-proposal
+   (https://github.com/pmeenan/http3-prioritization-proposal), Patrick
+   Meenan advocated for representing the priorities using a tuple of
+   urgency and concurrency.  The ability to disable HTTP/2
+   prioritization is inspired by [I-D.lassey-priority-setting], authored
+   by Brad Lassey and Lucas Pardue, with modifications based on feedback
+   that was not incorporated into an update to that document.
 
    The motivation for defining an alternative to HTTP/2 priorities is
    drawn from discussion within the broad HTTP community.  Special
@@ -1184,22 +1186,26 @@ Appendix B.  Change Log
 
    _RFC EDITOR: please remove this section before publication_
 
-B.1.  Since draft-ietf-httpbis-priority-10
+B.1.  Since draft-ietf-httpbis-priority-11
+
+   *  Changes to address Last Call/IESG feedback
+
+B.2.  Since draft-ietf-httpbis-priority-10
 
    *  Editorial changes
 
    *  Add clearer IANA instructions for Priority Parameter initial
       population
 
-B.2.  Since draft-ietf-httpbis-priority-09
+B.3.  Since draft-ietf-httpbis-priority-09
 
    *  Editorial changes
 
-B.3.  Since draft-ietf-httpbis-priority-08
+B.4.  Since draft-ietf-httpbis-priority-08
 
    *  Changelog fixups
 
-B.4.  Since draft-ietf-httpbis-priority-07
+B.5.  Since draft-ietf-httpbis-priority-07
 
    *  Relax requirements of receiving SETTINGS_NO_RFC7540_PRIORITIES
       that changes value (#1714, #1725)
@@ -1210,7 +1216,7 @@ B.4.  Since draft-ietf-httpbis-priority-07
    *  Relax requirement when receiving a PRIORITY_UPDATE with an invalid
       structured field value (#1741, #1756)
 
-B.5.  Since draft-ietf-httpbis-priority-06
+B.6.  Since draft-ietf-httpbis-priority-06
 
    *  Focus on editorial changes
 
@@ -1219,7 +1225,7 @@ B.5.  Since draft-ietf-httpbis-priority-06
    *  Split policy for parameter IANA registry into two sections based
       on key length
 
-B.6.  Since draft-ietf-httpbis-priority-05
+B.7.  Since draft-ietf-httpbis-priority-05
 
    *  Renamed SETTINGS_DEPRECATE_RFC7540_PRIORITIES to
       SETTINGS_NO_RFC7540_PRIORITIES
@@ -1227,7 +1233,7 @@ B.6.  Since draft-ietf-httpbis-priority-05
    *  Clarify that senders of the HTTP/2 setting can use any alternative
       (#1679, #1705)
 
-B.7.  Since draft-ietf-httpbis-priority-04
+B.8.  Since draft-ietf-httpbis-priority-04
 
    *  Renamed SETTINGS_DEPRECATE_HTTP2_PRIORITIES to
       SETTINGS_DEPRECATE_RFC7540_PRIORITIES (#1601)
@@ -1236,7 +1242,7 @@ B.7.  Since draft-ietf-httpbis-priority-04
 
    *  Clarify intermediary behavior (#1562)
 
-B.8.  Since draft-ietf-httpbis-priority-03
+B.9.  Since draft-ietf-httpbis-priority-03
 
    *  Add statement about what this scheme applies to.  Clarify
       extensions can use it but must define how themselves (#1550,
@@ -1250,7 +1256,7 @@ B.8.  Since draft-ietf-httpbis-priority-03
 
    *  Suggest intermediaries might avoid strict prioritization (#1562)
 
-B.9.  Since draft-ietf-httpbis-priority-02
+B.10.  Since draft-ietf-httpbis-priority-02
 
    *  Describe considerations for server push prioritization (#1056,
       #1345)
@@ -1260,7 +1266,7 @@ B.9.  Since draft-ietf-httpbis-priority-02
 
    *  Add a Priority Parameters registry (#1371)
 
-B.10.  Since draft-ietf-httpbis-priority-01
+B.11.  Since draft-ietf-httpbis-priority-01
 
    *  PRIORITY_UPDATE frame changes (#1096, #1079, #1167, #1262, #1267,
       #1271)
@@ -1271,14 +1277,14 @@ B.10.  Since draft-ietf-httpbis-priority-01
    *  Remove specific instructions related to intermediary fairness
       (#1022, #1264)
 
-B.11.  Since draft-ietf-httpbis-priority-00
+B.12.  Since draft-ietf-httpbis-priority-00
 
    *  Move text around (#1217, #1218)
 
    *  Editorial change to the default urgency.  The value is 3, which
       was always the intent of previous changes.
 
-B.12.  Since draft-kazuho-httpbis-priority-04
+B.13.  Since draft-kazuho-httpbis-priority-04
 
    *  Minimize semantics of Urgency levels (#1023, #1026)
 
@@ -1293,7 +1299,7 @@ B.12.  Since draft-kazuho-httpbis-priority-04
 
    *  Removed outdated Consideration (#118)
 
-B.13.  Since draft-kazuho-httpbis-priority-03
+B.14.  Since draft-kazuho-httpbis-priority-03
 
    *  Changed numbering from [-1,6] to [0,7] (#78)
 
@@ -1304,7 +1310,7 @@ B.13.  Since draft-kazuho-httpbis-priority-03
 
    *  Expand on considerations (#105, #107, #109, #110, #111, #113)
 
-B.14.  Since draft-kazuho-httpbis-priority-02
+B.15.  Since draft-kazuho-httpbis-priority-02
 
    *  Consolidation of the problem statement (#61, #73)
 
@@ -1314,11 +1320,11 @@ B.14.  Since draft-kazuho-httpbis-priority-02
 
    *  Explain fairness issue and mitigations (#56)
 
-B.15.  Since draft-kazuho-httpbis-priority-01
+B.16.  Since draft-kazuho-httpbis-priority-01
 
    *  Explain how reprioritization might be supported.
 
-B.16.  Since draft-kazuho-httpbis-priority-00
+B.17.  Since draft-kazuho-httpbis-priority-00
 
    *  Expand urgency levels from 3 to 8.
 
