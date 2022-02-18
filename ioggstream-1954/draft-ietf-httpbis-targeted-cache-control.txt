@@ -5,10 +5,10 @@
 HTTP                                                            S. Ludin
 Internet-Draft                                                    Akamai
 Intended status: Standards Track                           M. Nottingham
-Expires: 20 August 2022                                           Fastly
+Expires: 22 August 2022                                           Fastly
                                                                    Y. Wu
                                                               Cloudflare
-                                                        16 February 2022
+                                                        18 February 2022
 
 
                       Targeted HTTP Cache Control
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2022.
+   This Internet-Draft will expire on 22 August 2022.
 
 Copyright Notice
 
@@ -411,7 +411,6 @@ Authors' Addresses
 
    Stephen Ludin
    Akamai
-
    Email: sludin@ludin.org
 
 
@@ -419,12 +418,10 @@ Authors' Addresses
    Fastly
    Prahran
    Australia
-
    Email: mnot@mnot.net
    URI:   https://www.mnot.net/
 
 
    Yuchen Wu
    Cloudflare
-
    Email: me@yuchenwu.net
