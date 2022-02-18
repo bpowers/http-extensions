@@ -456,10 +456,11 @@ Table of Contents
    *  keys convey the hashing algorithm (see Section 5) and have no
       parameters;
 
-   *  values MUST be Integers (Section 3.3.1 of [STRUCTURED-FIELDS]) in
-      the range 0 to 10 inclusive. 1 is the least preferred, 10 is the
-      most preferred, and a value of 0 means "not acceptable".  They
-      convey an ascending, relative, weighted preference.
+   *  values MUST be of type Integer (Section 3.3.1 of
+      [STRUCTURED-FIELDS]) in the range 0 to 10 inclusive. 1 is the
+      least preferred, 10 is the most preferred, and a value of 0 means
+      "not acceptable".  Values convey an ascending, relative, weighted
+      preference.
 
       Want-Representation-Digest = sf-dictionary
       Want-Content-Digest = sf-dictionary
