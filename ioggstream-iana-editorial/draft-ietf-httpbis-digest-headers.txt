@@ -714,9 +714,6 @@ Table of Contents
 
                                   Table 2
 
-   |--------------------------------|-----------|-----------------------
-   -----------------------------------------|
-
 8.2.  Establish the Hash Algorithms for HTTP Digest Fields Registry
 
    This memo sets this specification to be the establishing document for
