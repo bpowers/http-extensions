@@ -604,15 +604,11 @@ Table of Contents
    application from accessing the representation.  Such an attack
    consumes the resources of both endpoints.  See also Section 2.2.
 
-   Digest fields SHOULD always be used over a connection that provides
-   integrity at the transport layer that protects HTTP fields.
-
-   A Representation-Digest field using NOT RECOMMENDED hashing
-   algorithms SHOULD NOT be used in signatures.
-
-   Using signatures to protect the checksum of an empty representation
-   allows receiving endpoints to detect if an eventual payload has been
-   stripped or added.
+   Signatures are likely to be deemed an adversarial setting when
+   applying Integrity fields; see Section 5.  Using signatures to
+   protect the checksum of an empty representation allows receiving
+   endpoints to detect if an eventual payload has been stripped or
+   added.
 
    Any mangling of digest fields, including de-duplication of
    representation-data-digest values or combining different field values
