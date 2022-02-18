@@ -309,8 +309,8 @@ Table of Contents
    Representation-Digest is a Structured Fields Dictionary (see
    Section 3.2 of [STRUCTURED-FIELDS]) where: * keys convey the hashing
    algorithm (see Section 5) used to compute the digest and have no
-   parameters; * values MUST be Byte Sequences containing the output of
-   the digest calculation.
+   parameters; * values MUST be of type Byte Sequence, which contain the
+   output of the digest calculation.
 
    Representation-Digest   = sf-dictionary
 
