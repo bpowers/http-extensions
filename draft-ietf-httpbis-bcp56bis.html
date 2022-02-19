@@ -1017,7 +1017,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Nottingham</td>
-<td class="center">Expires 22 August 2022</td>
+<td class="center">Expires 23 August 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1033,12 +1033,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <a href="https://www.rfc-editor.org/rfc/rfc3205" class="eref">3205</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-02-18" class="published">18 February 2022</time>
+<time datetime="2022-02-19" class="published">19 February 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-08-22">22 August 2022</time></dd>
+<dd class="expires"><time datetime="2022-08-23">23 August 2022</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1087,7 +1087,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 August 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 August 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1168,7 +1168,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
                     <p id="section-toc.1-1.4.2.4.2.2.1"><a href="#section-4.4.2" class="xref">4.4.2</a>.  <a href="#name-considering-uri-schemes" class="xref">Considering URI Schemes</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4.2.3">
-                    <p id="section-toc.1-1.4.2.4.2.3.1"><a href="#section-4.4.3" class="xref">4.4.3</a>.  <a href="#name-transport-ports" class="xref">Transport Ports</a></p>
+                    <p id="section-toc.1-1.4.2.4.2.3.1"><a href="#section-4.4.3" class="xref">4.4.3</a>.  <a href="#name-choosing-transport-ports" class="xref">Choosing Transport Ports</a></p>
 </li>
                 </ul>
 </li>
@@ -1307,7 +1307,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         <li class="normal" id="section-1-7.5">How can interoperability problems and "protocol dead ends" be avoided?<a href="#section-1-7.5" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-1-8">This document contains best current practices for the specification of such applications. <a href="#used" class="xref">Section 2</a> defines when it applies, <a href="#overview" class="xref">Section 3</a> surveys the properties of HTTP that are important to preserve, and <a href="#bp" class="xref">Section 4</a> conveys best practices for specifying them.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-8"><a href="#used" class="xref">Section 2</a> defines when this document applies, <a href="#overview" class="xref">Section 3</a> surveys the properties of HTTP that are important to preserve, and <a href="#bp" class="xref">Section 4</a> contains best practices for the specification of applications that use HTTP.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <p id="section-1-9">It is written primarily to guide IETF efforts to define application protocols using HTTP for deployment on the Internet but might be applicable in other situations. Note that the requirements herein do not necessarily apply to the development of generic HTTP extensions.<a href="#section-1-9" class="pilcrow">¶</a></p>
 <p id="section-1-10">This document obsoletes <span>[<a href="#RFC3205" class="xref">RFC3205</a>]</span> to reflect the experience and developments regarding HTTP in the intervening time.<a href="#section-1-10" class="pilcrow">¶</a></p>
 <div id="notational-conventions">
@@ -1348,7 +1348,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
         </h3>
 <p id="section-2.1-1">An application can rely upon HTTP without meeting the criteria for using it as defined above.
 For example, an application might wish to avoid re-specifying parts of the message format but might change other aspects of the protocol's operation, or it might want to use application-specific methods.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">Doing so brings more freedom to modify protocol operations, but loses at least a portion of the benefits outlined in <a href="#overview" class="xref">Section 3</a>, as most HTTP implementations won't be easily adaptable to these changes, and the benefit of mindshare will be lost.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">Doing so permits more freedom to modify protocol operations, but at least a portion of the benefits outlined in <a href="#overview" class="xref">Section 3</a> are lost as most HTTP implementations won't be easily adaptable to these changes. The benefit of mindshare will also be lost.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.1-3">Such specifications <span class="bcp14">MUST NOT</span> use HTTP's URI schemes, transport ports, ALPN protocol IDs, or IANA registries; rather, they are encouraged to establish their own.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1365,16 +1365,14 @@ For example, an application might wish to avoid re-specifying parts of the messa
         <h3 id="name-generic-semantics">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-generic-semantics" class="section-name selfRef">Generic Semantics</a>
         </h3>
-<p id="section-3.1-1">Much of the value of HTTP is in its generic semantics -- that is, the protocol elements defined by HTTP are potentially applicable to every resource and are not specific to a particular context. Application-specific semantics are best expressed in message content and in header fields, not status codes or methods (although the latter do have generic semantics that relate to application state).<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">This generic/application-specific split allows an HTTP message to be handled by common software (e.g., HTTP servers, intermediaries, client implementations, and caches) without understanding the specific application. It also allows people to leverage their knowledge of HTTP semantics without specialising them for a particular application.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">Much of the value of HTTP is in its generic semantics -- that is, the protocol elements defined by HTTP are potentially applicable to every resource and are not specific to a particular context. Application-specific semantics are best expressed in message content and header fields, not status codes or methods (although status codes and methods do have generic semantics that relate to application state).<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">This split between generic and application-specific semantics allows an HTTP message to be handled by common software (e.g., HTTP servers, intermediaries, client implementations, and caches) without requiring those implementations to understand the application in use. It also allows people to leverage their knowledge of HTTP semantics without needing specialised knowledge of a particular application.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1-3">Therefore, applications that use HTTP <span class="bcp14">MUST NOT</span> redefine, refine, or overlay the semantics of generic protocol elements such as methods, status codes, or existing header fields. Instead, they should focus their specifications on protocol elements that are specific to that application -- namely, their HTTP resources.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.1-4">When writing a specification, it's often tempting to specify exactly how HTTP is to be implemented, supported, and used. However, this can easily lead to an unintended profile of HTTP behaviour. For example, it's common to see specifications with language like this:<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1-5">
-<pre>
-A POST request MUST result in a 201 (Created) response.
-</pre><a href="#section-3.1-5" class="pilcrow">¶</a>
-</div>
-<p id="section-3.1-6">This forms an expectation in the client that the response will always be <code>201 Created</code> when in fact there are a number of reasons why the status code might differ in a real deployment; for example, there might be a proxy that requires authentication, or a server-side error, or a redirection. If the client does not anticipate this, the application's deployment is brittle.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
+<blockquote id="section-3.1-5">
+          <p id="section-3.1-5.1">A POST request MUST result in a 201 (Created) response.<a href="#section-3.1-5.1" class="pilcrow">¶</a></p>
+</blockquote>
+<p id="section-3.1-6">This forms an expectation in the client that the response will always be 201 (Created) when in fact there are a number of reasons why the status code might differ in a real deployment; for example, there might be a proxy that requires authentication, or a server-side error, or a redirection. If the client does not anticipate this, the application's deployment is brittle.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
 <p id="section-3.1-7">See <a href="#resource" class="xref">Section 4.2</a> for more details.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1388,8 +1386,8 @@ A POST request MUST result in a 201 (Created) response.
 <p id="section-3.2-3">Instead of statically defining URI components like paths, it is <span class="bcp14">RECOMMENDED</span> that applications using HTTP define and use links <span>[<a href="#WEB-LINKING" class="xref">WEB-LINKING</a>]</span> to allow flexibility in deployment.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.2-4">Using runtime links in this fashion has a number of other benefits -- especially when an application is to have multiple implementations and/or deployments (as is often the case for those that are standardised).<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5">For example, navigating with a link allows a request to be routed to a different server without the overhead of a redirection, thereby supporting deployment across machines well.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.2-6">It also becomes possible to "mix and match" different applications on the same server and offers a natural mechanism for extensibility, versioning, and capability management since the document containing the links can also contain information about their targets.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
-<p id="section-3.2-7">Using links also offers a form of cache invalidation that's seen on the Web; when a resource's state changes, the application can change its link to it so that a fresh copy is always fetched.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">By using links, it also becomes possible to "mix and match" different applications on the same server. The use of links also offers a natural mechanism for extensibility, versioning, and capability management because the document containing the links can also contain information about their targets.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-7">Using links also offers a form of cache invalidation that's seen on the Web; when a resource's state changes, the application can change the affected links so that a fresh copy is always fetched.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rich-functionality">
@@ -1420,7 +1418,7 @@ A POST request MUST result in a 201 (Created) response.
           <li class="normal" id="section-3.3-2.10">The ability to interact with the application easily using a Web browser<a href="#section-3.3-2.10" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.3-3">Applications that use HTTP are encouraged to utilise the various features that the protocol offers so that their users receive the maximum benefit from it and to allow it to be deployed in a variety of situations. This document does not require specific features to be used since the appropriate design trade-offs are highly specific to a given situation. However, following the practices in <a href="#bp" class="xref">Section 4</a> is a good starting point.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">An application that uses HTTP is encouraged to utilise the various features that the protocol offers so that its users receive the maximum benefit from those features and so that the application can be deployed in a variety of situations. This document does not require specific features to be used since the appropriate design trade-offs are highly specific to a given situation. However, following the practices in <a href="#bp" class="xref">Section 4</a> is a good starting point.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1478,7 +1476,7 @@ Server: Bar/2.2
         </ul>
 <p id="section-4.2-3">An application can define its operation by composing these protocol elements to define a set of resources that are identified by link relations and that implement specified behaviours, including:<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.2-4.1">retrieval of their state using GET in one or more formats identified by media type;<a href="#section-4.2-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.2-4.1">retrieval of resource state using GET in one or more formats identified by media type;<a href="#section-4.2-4.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-4.2-4.2">resource creation or update using POST or PUT, with an appropriately identified request content format;<a href="#section-4.2-4.2" class="pilcrow">¶</a>
 </li>
@@ -1488,22 +1486,18 @@ Server: Bar/2.2
 </li>
         </ul>
 <p id="section-4.2-5">For example, an application might specify:<a href="#section-4.2-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2-6">
-<pre>
-Resources linked to with the "example-widget" link relation type are
+<blockquote id="section-4.2-6">
+          <p id="section-4.2-6.1">Resources linked to with the "example-widget" link relation type are
 Widgets. The state of a Widget can be fetched in the
 "application/example-widget+json" format, and can be updated by PUT
-to the same link. Widget resources can be deleted.
-
-The "Example-Count" response header field on Widget representations
-indicates how many Widgets are held by the sender.
-
-The "application/example-widget+json" format is a JSON [RFC8259]
+to the same link. Widget resources can be deleted.<a href="#section-4.2-6.1" class="pilcrow">¶</a></p>
+<p id="section-4.2-6.2">The Example-Count response header field on Widget representations
+indicates how many Widgets are held by the sender.<a href="#section-4.2-6.2" class="pilcrow">¶</a></p>
+<p id="section-4.2-6.3">The "application/example-widget+json" format is a JSON [RFC8259]
 format representing the state of a Widget. It contains links to
 related information in the link indicated by the Link header field
-value with the "example-other-info" link relation type.
-</pre><a href="#section-4.2-6" class="pilcrow">¶</a>
-</div>
+value with the "example-other-info" link relation type.<a href="#section-4.2-6.3" class="pilcrow">¶</a></p>
+</blockquote>
 <p id="section-4.2-7">Applications can also specify the use of URI Templates <span>[<a href="#URI-TEMPLATE" class="xref">URI-TEMPLATE</a>]</span> to allow clients to generate URLs based upon runtime data.<a href="#section-4.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1535,7 +1529,7 @@ Certificates:  </dt>
 </dd>
         <dd class="break"></dd>
 </dl>
-<p id="section-4.3-5">Applications using HTTP should not statically require HTTP features that are usually negotiated to be supported by clients. For example, requiring that clients support responses with a certain content coding (<span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-8.4.1" class="relref">Section 8.4.1</a></span>) instead of negotiating for it (<span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-12.5.3" class="relref">Section 12.5.3</a></span>) means that otherwise conformant clients cannot interoperate with the application. Applications can encourage the implementation of such features, though.<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+<p id="section-4.3-5">Applications using HTTP should not require that clients statically support HTTP features that are usually negotiated. For example, requiring that clients support responses with a certain content coding (<span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-8.4.1" class="relref">Section 8.4.1</a></span>) instead of negotiating for it (<span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-12.5.3" class="relref">Section 12.5.3</a></span>) means that otherwise conformant clients cannot interoperate with the application. Applications can encourage the implementation of such features, though.<a href="#section-4.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="specifying-urls">
@@ -1578,7 +1572,7 @@ Certificates:  </dt>
 </li>
             <li class="normal" id="section-4.4.2-3.2">Existing non-browser clients, intermediaries, servers, and associated software will not recognise the new scheme. For example, a client library might fail to dispatch the request, a cache might refuse to store the response, and a proxy might fail to forward the request.<a href="#section-4.4.2-3.2" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-4.4.2-3.3">Because URLs commonly occur in HTTP artefacts and are often generated automatically (e.g., in the <code>Location</code> response header field), it can be difficult to ensure that the new scheme is used consistently.<a href="#section-4.4.2-3.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-4.4.2-3.3">Because URLs commonly occur in HTTP artefacts and are often generated automatically (e.g., in the Location response header field), it can be difficult to ensure that the new scheme is used consistently.<a href="#section-4.4.2-3.3" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-4.4.2-3.4">The resources identified by the new scheme will still be available using "http" and/or "https" URLs. Those URLs can "leak" into use, which can present security and operability issues. For example, using a new scheme to ensure that requests don't get sent to a "normal" Web site is likely to fail.<a href="#section-4.4.2-3.4" class="pilcrow">¶</a>
 </li>
@@ -1592,10 +1586,10 @@ Certificates:  </dt>
 <p id="section-4.4.2-4">See <span>[<a href="#RFC7595" class="xref">RFC7595</a>]</span> for more information about minting new URI schemes.<a href="#section-4.4.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="transport-ports">
+<div id="choosing-transport-ports">
 <section id="section-4.4.3">
-          <h4 id="name-transport-ports">
-<a href="#section-4.4.3" class="section-number selfRef">4.4.3. </a><a href="#name-transport-ports" class="section-name selfRef">Transport Ports</a>
+          <h4 id="name-choosing-transport-ports">
+<a href="#section-4.4.3" class="section-number selfRef">4.4.3. </a><a href="#name-choosing-transport-ports" class="section-name selfRef">Choosing Transport Ports</a>
           </h4>
 <p id="section-4.4.3-1">Applications can use the applicable default port (80 for HTTP, 443 for HTTPS), or they can be deployed upon other ports. This decision can be made at deployment time or might be encouraged by the application's specification (e.g., by registering a port for that application).<a href="#section-4.4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.4.3-2">If a non-default port is used, it needs to be reflected in the authority of all URLs for that resource; the only mechanism for changing a default port is changing the URI scheme (see <a href="#scheme" class="xref">Section 4.4.2</a>).<a href="#section-4.4.3-2" class="pilcrow">¶</a></p>
@@ -1611,9 +1605,9 @@ Certificates:  </dt>
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-using-http-methods" class="section-name selfRef">Using HTTP Methods</a>
         </h3>
 <p id="section-4.5-1">Applications that use HTTP <span class="bcp14">MUST</span> confine themselves to using registered HTTP methods such as GET, POST, PUT, DELETE, and PATCH.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
-<p id="section-4.5-2">New HTTP methods are rare; they are required to be registered in the HTTP Method Registry with IETF Review (see <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>) and are also required to be generic. That means that they need to be potentially applicable to all resources, not just those of one application.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
+<p id="section-4.5-2">New HTTP methods are rare; they are required to be registered in the "HTTP Method Registry" with IETF Review (see <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>) and are also required to be generic. That means that they need to be potentially applicable to all resources, not just those of one application.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
 <p id="section-4.5-3">While historically some applications (e.g., <span>[<a href="#RFC4791" class="xref">RFC4791</a>]</span>) have defined non-generic methods, <span>[<a href="#HTTP" class="xref">HTTP</a>]</span> now forbids this.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
-<p id="section-4.5-4">When authors believe that a new method is required, they are encouraged to engage with the HTTP community early (e.g., on the ietf-http-wg@w3.org mailing list) and document their proposal as a separate HTTP extension rather than as part of an application's specification.<a href="#section-4.5-4" class="pilcrow">¶</a></p>
+<p id="section-4.5-4">When authors believe that a new method is required, they are encouraged to engage with the HTTP community early (e.g., on the <span>&lt;<a href="mailto:ietf-http-wg@w3.org">mailto:ietf-http-wg@w3.org</a>&gt;</span> mailing list) and document their proposal as a separate HTTP extension rather than as part of an application's specification.<a href="#section-4.5-4" class="pilcrow">¶</a></p>
 <div id="get">
 <section id="section-4.5.1">
           <h4 id="name-get">
@@ -1622,7 +1616,7 @@ Certificates:  </dt>
 <p id="section-4.5.1-1">GET is the most common and useful HTTP method; its retrieval semantics allow caching and side-effect free linking and underlie many of the benefits of using HTTP.<a href="#section-4.5.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.5.1-2">Queries can be performed with GET, often using the query component of the URL; this is a familiar pattern from Web browsing, and the results can be cached, improving the efficiency of an often expensive process. In some cases, however, GET might be unwieldy for expressing queries because of the limited syntax of the URI; in particular, if binary data forms part of the query terms, it needs to be encoded to conform to the URI syntax.<a href="#section-4.5.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.5.1-3">While this is not an issue for short queries, it can become one for larger query terms or those that need to sustain a high rate of requests. Additionally, some HTTP implementations limit the size of URLs they support, although modern HTTP software has much more generous limits than previously (typically, considerably more than 8000 octets, as required by <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>).<a href="#section-4.5.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.5.1-4">In these cases, an application using HTTP might consider using POST to express queries in the request's content; doing so avoids encoding overhead and URL length limits in implementations. However, in doing so, it should be noted that the benefits of GET such as caching and linking to query results are lost. Therefore, applications using HTTP that feel a need to allow POST queries ought to consider allowing both methods.<a href="#section-4.5.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-4">In these cases, an application using HTTP might consider using POST to express queries in the request's content; doing so avoids encoding overhead and URL length limits in implementations. However, in doing so, it should be noted that the benefits of GET such as caching and linking to query results are lost. Therefore, applications using HTTP that require support for POST queries ought to consider allowing both methods.<a href="#section-4.5.1-4" class="pilcrow">¶</a></p>
 <p id="section-4.5.1-5">Processing of GET requests should not change the application's state or have other side effects that might be significant to the client since implementations can and do retry HTTP GET requests that fail and some GET requests protected by TLS Early Data might be vulnerable to replay attacks (see <span>[<a href="#RFC8470" class="xref">RFC8470</a>]</span>). Note that this does not include logging and similar functions; see <span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-9.2.1" class="relref">Section 9.2.1</a></span>.<a href="#section-4.5.1-5" class="pilcrow">¶</a></p>
 <p id="section-4.5.1-6">Finally, note that while the generic HTTP syntax allows a GET request message to contain content, the purpose is to allow message parsers to be generic; per <span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-9.3.1" class="relref">Section 9.3.1</a></span>, content in a GET is not recommended, has no meaning, and will be either ignored or rejected by generic HTTP software (such as intermediaries, caches, servers, and client libraries).<a href="#section-4.5.1-6" class="pilcrow">¶</a></p>
 </section>
@@ -1639,7 +1633,7 @@ Certificates:  </dt>
 </li>
             <li class="normal" id="section-4.5.2-3.2">OPTIONS responses are not cacheable because HTTP caches operate on representations of the resource (i.e., GET and HEAD). If OPTIONS responses are cached separately, their interactions with the HTTP cache expiry, secondary keys, and other mechanisms need to be considered.<a href="#section-4.5.2-3.2" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-4.5.2-3.3">OPTIONS is "chatty" -- always separating metadata out into a separate request increases the number of requests needed to interact with the application.<a href="#section-4.5.2-3.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-4.5.2-3.3">OPTIONS is "chatty" -- requesting metadata separately increases the number of requests needed to interact with the application.<a href="#section-4.5.2-3.3" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-4.5.2-3.4">Implementation support for OPTIONS is not universal; some servers do not expose the ability to respond to OPTIONS requests without significant effort.<a href="#section-4.5.2-3.4" class="pilcrow">¶</a>
 </li>
@@ -1665,10 +1659,10 @@ Certificates:  </dt>
 <p id="section-4.6-3">Furthermore, mapping application errors to individual HTTP status codes one-to-one often leads to a situation where the finite space of applicable HTTP status codes is exhausted. This, in turn, leads to a number of bad practices -- including minting new, application-specific status codes or using existing status codes even though the link between their semantics and the application's is tenuous at best.<a href="#section-4.6-3" class="pilcrow">¶</a></p>
 <p id="section-4.6-4">Instead, applications using HTTP should define their errors to use the most applicable status code, making generous use of the general status codes (200, 400, and 500) when in doubt. Importantly, they should not specify a one-to-one relationship between status codes and application errors, thereby avoiding the exhaustion issue outlined above.<a href="#section-4.6-4" class="pilcrow">¶</a></p>
 <p id="section-4.6-5">To distinguish between multiple error conditions that are mapped to the same status code and to avoid the misattribution issue outlined above, applications using HTTP should convey finer-grained error information in the response's message content and/or header fields. <span>[<a href="#PROBLEM-DETAILS" class="xref">PROBLEM-DETAILS</a>]</span> provides one way to do so.<a href="#section-4.6-5" class="pilcrow">¶</a></p>
-<p id="section-4.6-6">Because the set of registered HTTP status codes can expand, applications using HTTP should explicitly point out that clients ought to be able to handle all applicable status codes gracefully (i.e., falling back to the generic <code>n00</code> semantics of a given status code; e.g., <code>499</code> can be safely handled as <code>400</code> by clients that don't recognise it). This is preferable to creating a "laundry list" of potential status codes since such a list won't be complete in the foreseeable future.<a href="#section-4.6-6" class="pilcrow">¶</a></p>
+<p id="section-4.6-6">Because the set of registered HTTP status codes can expand, applications using HTTP should explicitly point out that clients ought to be able to handle all applicable status codes gracefully (i.e., falling back to the generic n00 semantics of a given status code; e.g., 499 can be safely handled as 400 (Bad Request) by clients that don't recognise it). This is preferable to creating a "laundry list" of potential status codes since such a list won't be complete in the foreseeable future.<a href="#section-4.6-6" class="pilcrow">¶</a></p>
 <p id="section-4.6-7">Applications using HTTP <span class="bcp14">MUST NOT</span> re-specify the semantics of HTTP status codes, even if it is only by copying their definition. It is <span class="bcp14">NOT RECOMMENDED</span> they require specific reason phrases to be used; the reason phrase has no function in HTTP, is not guaranteed to be preserved by implementations, and is not carried at all in the HTTP/2 <span>[<a href="#HTTP2" class="xref">HTTP2</a>]</span> message format.<a href="#section-4.6-7" class="pilcrow">¶</a></p>
 <p id="section-4.6-8">Applications <span class="bcp14">MUST</span> only use registered HTTP status codes. As with methods, new HTTP status codes are rare and required (by <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>) to be registered with IETF Review. Similarly, HTTP status codes are generic; they are required (by <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>) to be potentially applicable to all resources, not just to those of one application.<a href="#section-4.6-8" class="pilcrow">¶</a></p>
-<p id="section-4.6-9">When authors believe that a new status code is required, they are encouraged to engage with the HTTP community early (e.g., on the ietf-http-wg@w3.org mailing list) and document their proposal as a separate HTTP extension, rather than as part of an application's specification.<a href="#section-4.6-9" class="pilcrow">¶</a></p>
+<p id="section-4.6-9">When authors believe that a new status code is required, they are encouraged to engage with the HTTP community early (e.g., on the <span>&lt;<a href="mailto:ietf-http-wg@w3.org">mailto:ietf-http-wg@w3.org</a>&gt;</span> mailing list) and document their proposal as a separate HTTP extension, rather than as part of an application's specification.<a href="#section-4.6-9" class="pilcrow">¶</a></p>
 <div id="redirects">
 <section id="section-4.6.1">
           <h4 id="name-redirection">
@@ -1731,10 +1725,10 @@ Generally, when a redirected request is made, its header fields are copied from 
 <p id="section-4.7-3">When the conditions above are not met, it is usually better to convey application-specific information in other places -- e.g., the message content or the URL query string.<a href="#section-4.7-3" class="pilcrow">¶</a></p>
 <p id="section-4.7-4">New header fields <span class="bcp14">MUST</span> be registered, per <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-16.3" class="relref">Section 16.3</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span>.<a href="#section-4.7-4" class="pilcrow">¶</a></p>
 <p id="section-4.7-5">See <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-16.3.2" class="relref">Section 16.3.2</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span> for guidelines to consider when minting new header fields. <span>[<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span> provides a common structure for new header fields and avoids many issues in their parsing and handling; it is <span class="bcp14">RECOMMENDED</span> that new header fields use it.<a href="#section-4.7-5" class="pilcrow">¶</a></p>
-<p id="section-4.7-6">It is <span class="bcp14">RECOMMENDED</span> that header field names be short (even when field compression is used, there is an overhead) but appropriately specific. In particular, if a header field is specific to an application, an identifier for that application can form a prefix to the header field name, separated by a "-".<a href="#section-4.7-6" class="pilcrow">¶</a></p>
+<p id="section-4.7-6">It is <span class="bcp14">RECOMMENDED</span> that header field names be short (even when field compression is used, there is an overhead) but appropriately specific. In particular, if a header field is specific to an application, an identifier for that application can form a prefix to the header field name, separated by a hyphen.<a href="#section-4.7-6" class="pilcrow">¶</a></p>
 <p id="section-4.7-7">For example, if the "example" application needs to create three header fields, they might be called "example-foo", "example-bar", and "example-baz". Note that the primary motivation here is to avoid consuming more generic field names, not to reserve a portion of the namespace for the application; see <span>[<a href="#RFC6648" class="xref">RFC6648</a>]</span> for related considerations.<a href="#section-4.7-7" class="pilcrow">¶</a></p>
-<p id="section-4.7-8">The semantics of existing HTTP header fields <span class="bcp14">MUST NOT</span> be redefined without updating their registration or defining an extension to them (if allowed). For example, an application using HTTP cannot specify that the <code>Location</code> header field has a special meaning in a certain context.<a href="#section-4.7-8" class="pilcrow">¶</a></p>
-<p id="section-4.7-9">See <a href="#caching" class="xref">Section 4.9</a> for the interaction between header fields and HTTP caching; in particular, request header fields that are used to choose (as per <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.1" class="relref">Section 4.1</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) a response have impact there and need to be carefully considered.<a href="#section-4.7-9" class="pilcrow">¶</a></p>
+<p id="section-4.7-8">The semantics of existing HTTP header fields <span class="bcp14">MUST NOT</span> be redefined without updating their registration or defining an extension to them (if allowed). For example, an application using HTTP cannot specify that the Location header field has a special meaning in a certain context.<a href="#section-4.7-8" class="pilcrow">¶</a></p>
+<p id="section-4.7-9">See <a href="#caching" class="xref">Section 4.9</a> for the interaction between header fields and HTTP caching; in particular, request header fields that are used to choose (per <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.1" class="relref">Section 4.1</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) a response have impact there and need to be carefully considered.<a href="#section-4.7-9" class="pilcrow">¶</a></p>
 <p id="section-4.7-10">See <a href="#state" class="xref">Section 4.10</a> for considerations regarding header fields that carry application state (e.g., Cookie).<a href="#section-4.7-10" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1760,10 +1754,10 @@ Generally, when a redirected request is made, its header fields are copied from 
 <a href="#section-4.9.1" class="section-number selfRef">4.9.1. </a><a href="#name-freshness" class="section-name selfRef">Freshness</a>
           </h4>
 <p id="section-4.9.1-1">Assigning even a short freshness lifetime (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.2" class="relref">Section 4.2</a></span>) -- e.g., 5 seconds -- allows a response to be reused to satisfy multiple clients and/or a single client making the same request repeatedly. In general, if it is safe to reuse something, consider assigning a freshness lifetime.<a href="#section-4.9.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.9.1-2">The most common method for specifying freshness is the max-age response directive (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.1" class="relref">Section 5.2.2.1</a></span>). The Expires header field (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.3" class="relref">Section 5.3</a></span>) can also be used, but it is not necessary; all modern cache implementations support Cache-Control, and specifying freshness as a delta is usually more convenient and less error-prone.<a href="#section-4.9.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.9.1-3">It is not necessary to add the "public" response directive (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.9" class="relref">Section 5.2.2.9</a></span>) to cache most responses; it is only necessary when it's desirable to store an authenticated response, or when the status code isn't understood by the cache and there isn't explicit freshness information available.<a href="#section-4.9.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.9.1-2">The most common method for specifying freshness is the max-age response directive (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.1" class="relref">Section 5.2.2.1</a></span>). The Expires header field (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.3" class="relref">Section 5.3</a></span>) can also be used, but it is not necessary; all modern cache implementations support the Cache-Control header field, and specifying freshness as a delta is usually more convenient and less error-prone.<a href="#section-4.9.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.9.1-3">It is not necessary to add the public response directive (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.9" class="relref">Section 5.2.2.9</a></span>) to cache most responses; it is only necessary when it's desirable to store an authenticated response, or when the status code isn't understood by the cache and there isn't explicit freshness information available.<a href="#section-4.9.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.9.1-4">In some situations, responses without explicit cache freshness directives will be stored and served using a heuristic freshness lifetime; see <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.2.2" class="relref">Section 4.2.2</a></span>. As the heuristic is not under the control of the application, it is generally preferable to set an explicit freshness lifetime or make the response explicitly uncacheable.<a href="#section-4.9.1-4" class="pilcrow">¶</a></p>
-<p id="section-4.9.1-5">If caching of a response is not desired, the appropriate response directive is "Cache-Control: no-store". Other directives are not necessary, and no-store only needs to be sent in situations where the response might be cached; see <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-3" class="relref">Section 3</a></span>. Note that "Cache-Control: no-cache" allows a response to be stored, just not reused by a cache without validation; it does not prevent caching (despite its name).<a href="#section-4.9.1-5" class="pilcrow">¶</a></p>
+<p id="section-4.9.1-5">If caching of a response is not desired, the appropriate cache response directive is no-store. Other directives are not necessary, and no-store only needs to be sent in situations where the response might be cached; see <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-3" class="relref">Section 3</a></span>. Note that the no-cache directive allows a response to be stored, just not reused by a cache without validation; it does not prevent caching (despite its name).<a href="#section-4.9.1-5" class="pilcrow">¶</a></p>
 <p id="section-4.9.1-6">For example, this response cannot be stored or reused by a cache:<a href="#section-4.9.1-6" class="pilcrow">¶</a></p>
 <div id="section-4.9.1-7">
 <pre class="lang-http-message sourcecode">
@@ -1781,8 +1775,8 @@ Cache-Control: no-store
           <h4 id="name-stale-responses">
 <a href="#section-4.9.2" class="section-number selfRef">4.9.2. </a><a href="#name-stale-responses" class="section-name selfRef">Stale Responses</a>
           </h4>
-<p id="section-4.9.2-1">Authors should understand that stale responses (e.g., with "Cache-Control: max-age=0") can be reused by caches when disconnected from the origin server; this can be useful for handling network issues.<a href="#section-4.9.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.9.2-2">If doing so is not suitable for a given response, the origin should use "Cache-Control: must-revalidate". See <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.2.4" class="relref">Section 4.2.4</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span> and also <span>[<a href="#RFC5861" class="xref">RFC5861</a>]</span> for additional controls over stale content.<a href="#section-4.9.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.9.2-1">Authors should understand that stale responses (e.g., with Cache-Control: max-age=0) can be reused by caches when disconnected from the origin server; this can be useful for handling network issues.<a href="#section-4.9.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.9.2-2">If doing so is not suitable for a given response, the origin should send the must-revalidate cache directive. See <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.2.4" class="relref">Section 4.2.4</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span> and also <span>[<a href="#RFC5861" class="xref">RFC5861</a>]</span> for additional controls over stale content.<a href="#section-4.9.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.9.2-3">Stale responses can be refreshed by assigning a validator, saving both transfer bandwidth and latency for large responses; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-13" class="relref">Section 13</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span>.<a href="#section-4.9.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1801,7 +1795,7 @@ Cache-Control: no-store
           <h4 id="name-varying-content-based-upon-">
 <a href="#section-4.9.4" class="section-number selfRef">4.9.4. </a><a href="#name-varying-content-based-upon-" class="section-name selfRef">Varying Content Based Upon the Request</a>
           </h4>
-<p id="section-4.9.4-1">If an application uses a request header field to change the response's header fields or content, authors should point out that this has implications for caching; in general, such resources need to either make their responses uncacheable (e.g., with the "no-store" cache-control directive defined in <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.5" class="relref">Section 5.2.2.5</a></span>) or send the Vary response header field (<span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-12.5.5" class="relref">Section 12.5.5</a></span>) on all responses from that resource (including the "default" response).<a href="#section-4.9.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.9.4-1">If an application uses a request header field to change the response's header fields or content, authors should point out that this has implications for caching; in general, such resources need to either make their responses uncacheable (e.g., with the no-store cache directive defined in <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.5" class="relref">Section 5.2.2.5</a></span>) or send the Vary response header field (<span>[<a href="#HTTP" class="xref">HTTP</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-12.5.5" class="relref">Section 12.5.5</a></span>) on all responses from that resource (including the "default" response).<a href="#section-4.9.4-1" class="pilcrow">¶</a></p>
 <p id="section-4.9.4-2">For example, this response:<a href="#section-4.9.4-2" class="pilcrow">¶</a></p>
 <div id="section-4.9.4-3">
 <pre class="lang-http-message sourcecode">
@@ -1846,7 +1840,7 @@ Vary: Accept-Encoding
 <a href="#section-4.12" class="section-number selfRef">4.12. </a><a href="#name-client-authentication" class="section-name selfRef">Client Authentication</a>
         </h3>
 <p id="section-4.12-1">Applications can use HTTP authentication (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-11" class="relref">Section 11</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span>) to identify clients. Per <span>[<a href="#RFC7617" class="xref">RFC7617</a>]</span>, the Basic authentication scheme is not suitable for protecting sensitive or valuable information unless the channel is secure (e.g., using the "HTTPS" URI scheme). Likewise, <span>[<a href="#RFC7616" class="xref">RFC7616</a>]</span> requires the Digest authentication scheme to be used over a secure channel.<a href="#section-4.12-1" class="pilcrow">¶</a></p>
-<p id="section-4.12-2">With HTTPS, clients might also be authenticated using certificates <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span>, but note that such authentication is intrinsically scoped to the underlying transport connection. As a result, a client has no way of knowing whether the authenticated status was used in preparing the response (though "Vary: *" and/or "Cache-Control: private" can provide a partial indication), and the only way to obtain a specifically unauthenticated response is to open a new connection.<a href="#section-4.12-2" class="pilcrow">¶</a></p>
+<p id="section-4.12-2">With HTTPS, clients might also be authenticated using certificates <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span>, but note that such authentication is intrinsically scoped to the underlying transport connection. As a result, a client has no way of knowing whether the authenticated status was used in preparing the response (though Vary: * and/or the private cache directive can provide a partial indication), and the only way to obtain a specifically unauthenticated response is to open a new connection.<a href="#section-4.12-2" class="pilcrow">¶</a></p>
 <p id="section-4.12-3">When used, it is important to carefully specify the scoping and use of authentication; if the application exposes sensitive data or capabilities (e.g., by acting as an ambient authority; see <span><a href="https://rfc-editor.org/rfc/rfc6454#section-8.3" class="relref">Section 8.3</a> of [<a href="#RFC6454" class="xref">RFC6454</a>]</span>), exploits are possible. Mitigations include using a request-specific token to ensure the intent of the client.<a href="#section-4.12-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1896,10 +1890,10 @@ Referrer-Policy: no-referrer
         <h3 id="name-maintaining-application-bou">
 <a href="#section-4.14" class="section-number selfRef">4.14. </a><a href="#name-maintaining-application-bou" class="section-name selfRef">Maintaining Application Boundaries</a>
         </h3>
-<p id="section-4.14-1">Because many HTTP capabilities are scoped to the origin <span>[<a href="#RFC6454" class="xref">RFC6454</a>]</span>, applications also need to consider how deployments might interact with other applications (including Web browsing) that use the same origin.<a href="#section-4.14-1" class="pilcrow">¶</a></p>
-<p id="section-4.14-2">For example, if Cookies <span>[<a href="#COOKIES" class="xref">COOKIES</a>]</span> are used to carry application state, they will be sent with all requests to the origin by default (unless scoped by path), and the application might receive cookies from other applications on the origin. This can lead to security issues as well as collision in cookie names.<a href="#section-4.14-2" class="pilcrow">¶</a></p>
-<p id="section-4.14-3">One solution to these issues is to require a dedicated hostname for the application so that it has a unique origin. However, it is often desirable to allow multiple applications to be deployed on a single hostname; doing so provides the most deployment flexibility and enables them to be "mixed" together (See <span>[<a href="#BCP190" class="xref">BCP190</a>]</span> for details). Therefore, applications using HTTP should strive to allow multiple applications on an origin.<a href="#section-4.14-3" class="pilcrow">¶</a></p>
-<p id="section-4.14-4">To enable this, when specifying the use of Cookies, HTTP authentication realms <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>, or other origin-wide HTTP mechanisms, applications using HTTP should not mandate the use of a particular name but instead let deployments configure them. Consideration should be given to scoping them to part of the origin, using their specified mechanisms for doing so.<a href="#section-4.14-4" class="pilcrow">¶</a></p>
+<p id="section-4.14-1">Because many HTTP capabilities are scoped to the origin <span>[<a href="#RFC6454" class="xref">RFC6454</a>]</span>, applications also need to consider how deployments might interact with other applications (including Web browsing) that use the same origin server.<a href="#section-4.14-1" class="pilcrow">¶</a></p>
+<p id="section-4.14-2">For example, if Cookies <span>[<a href="#COOKIES" class="xref">COOKIES</a>]</span> are used to carry application state, they will be sent with all requests to the origin by default (unless scoped by path), and the application might receive cookies from other applications on the origin server. This can lead to security issues as well as collision in cookie names.<a href="#section-4.14-2" class="pilcrow">¶</a></p>
+<p id="section-4.14-3">One solution to these issues is to require a dedicated hostname for the application so that it has a unique origin. However, it is often desirable to allow multiple applications to be deployed on a single hostname; doing so provides the most deployment flexibility and enables them to be "mixed" together (See <span>[<a href="#BCP190" class="xref">BCP190</a>]</span> for details).<a href="#section-4.14-3" class="pilcrow">¶</a></p>
+<p id="section-4.14-4">Therefore, applications using HTTP should strive to allow multiple applications on an origin. Specifically, when specifying the use of Cookies, HTTP authentication realms <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>, or other origin-wide HTTP mechanisms, applications using HTTP should not mandate the use of a particular name but instead let deployments configure them. Consideration should be given to scoping them to part of the origin, using their specified mechanisms for doing so.<a href="#section-4.14-4" class="pilcrow">¶</a></p>
 <p id="section-4.14-5">Modern Web browsers constrain the ability of content from one origin to access resources from another to avoid leaking private information. As a result, applications that wish to expose cross-origin data to browsers will need to implement the CORS protocol; see <span>[<a href="#FETCH" class="xref">FETCH</a>]</span>.<a href="#section-4.14-5" class="pilcrow">¶</a></p>
 </section>
 </div>
